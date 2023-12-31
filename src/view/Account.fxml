@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.AccountController">
+   <children>
+      <AnchorPane layoutY="7.0" prefHeight="728.0" prefWidth="973.0">
+         <children>
+            <Button layoutX="39.0" layoutY="162.0" mnemonicParsing="false" text="quản lí thiết bị" />
+            <Button layoutX="39.0" layoutY="230.0" mnemonicParsing="false" text="quản lí phòng ban" />
+            <Button layoutX="41.0" layoutY="293.0" mnemonicParsing="false" text="quản lí hoạt động" />
+            <Button layoutX="44.0" layoutY="351.0" mnemonicParsing="false" text="quản lí đơn thuê" />
+            <Button layoutX="44.0" layoutY="479.0" mnemonicParsing="false" onAction="#switchToAccountManagement" text="quản lí tài khoản" />
+            <Button layoutX="41.0" layoutY="413.0" mnemonicParsing="false" onAction="#switchToLocalPersonManagement" text="quản lí nhân khẩu" />
+            <Label layoutX="451.0" layoutY="30.0" text="Quản lí nhà văn hóa" />
+            <TableView fx:id="table" layoutX="235.0" layoutY="164.0" prefHeight="349.0" prefWidth="657.0">
+              <columns>
+                <TableColumn fx:id="userId" prefWidth="164.66664123535156" text="userid" />
+                <TableColumn fx:id="accountName" prefWidth="154.66659545898438" text="accountname" />
+                  <TableColumn fx:id="password" prefWidth="146.00006103515625" text="password" />
+                  <TableColumn fx:id="note" prefWidth="190.0" text="note" />
+              </columns>
+            </TableView>
+            <Button layoutX="44.0" layoutY="547.0" mnemonicParsing="false" onAction="#switchToWorkManagement" prefHeight="25.0" prefWidth="104.0" text="quản lí đăng nhập" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

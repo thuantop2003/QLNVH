@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.LogginController">
+   <children>
+      <AnchorPane layoutX="7.0" prefHeight="471.0" prefWidth="539.0">
+         <children>
+            <Button layoutX="174.0" layoutY="271.0" mnemonicParsing="false" onAction="#login" text="Đăng nhập" />
+            <Button layoutX="330.0" layoutY="271.0" mnemonicParsing="false" text="Thoát" />
+            <Label layoutX="61.0" layoutY="156.0" text="Tên đăng nhập" />
+            <Label layoutX="61.0" layoutY="214.0" text="Mật khẩu" />
+            <Label layoutX="182.0" layoutY="55.0" text="Ứng dụng quản lí nhà văn hóa" />
+            <TextField fx:id="accountname" layoutX="174.0" layoutY="152.0" prefHeight="25.0" prefWidth="211.0" />
+            <TextField fx:id="password" layoutX="174.0" layoutY="211.0" prefHeight="25.0" prefWidth="211.0" />
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>
