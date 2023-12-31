@@ -104,7 +104,7 @@ public class RoomDAO implements DAOInterface<Room> {
 				String status= rs.getString("status");
 				String note = rs.getString("note");
 				int roomId= rs.getInt("roomid");
-				Room a = new Room(name, capacity, price, status, note);
+				Room a = new Room(roomId,name, capacity, price, status, note);
 				ketQua.add(a);
 				
 			}

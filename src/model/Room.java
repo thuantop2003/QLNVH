@@ -9,7 +9,16 @@ public class Room implements InterfaceSearch<Room> {
 	private int roomId;
     private String name;
     private int capacity;
-    private int price;
+    public Room(int roomId, String name, int capacity, int price, String status, String note) {
+		super();
+		this.roomId = roomId;
+		this.name = name;
+		this.capacity = capacity;
+		this.price = price;
+		this.status = status;
+		this.note = note;
+	}
+	private int price;
     private String status;
     private String note;
     //constructors
@@ -76,18 +85,11 @@ public class Room implements InterfaceSearch<Room> {
 		this.note = note;
 	}
 	
-    //for debug and login
-	@Override
-    public String toString() {
-        return "Room{" +
-                "roomId=" + roomId +
-                ", name='" + name + '\'' +
-                ", capacity=" + capacity +
-                ", price=" + price +
-                ", status='" + status + '\'' +
-                ", note='" + note + '\'' +
-                '}';
-    }
+    @Override
+	public String toString() {
+		return "Room [roomId=" + roomId + ", name=" + name + ", capacity=" + capacity + ", price=" + price + ", status="
+				+ status + ", note=" + note + "]";
+	}
 	public int insert() {
 		int ketqua= RoomDAO.getInstance().insert(this);
 		return ketqua;
