@@ -47,7 +47,7 @@ public class LocalPersonDAO implements DAOInterface<Person> {
 		int ketqua=0;
 		Connection connection = JDBCUtil.getConnection();
 		String sql= "UPDATE person Set name=?, hostid=?, sdt=?, address=? ,status=?, note=? WHERE id=?"
-				+ "VALUES(?,?,?,?,?,?,?)";
+				;
 		try {
 			PreparedStatement pst = connection.prepareStatement(sql);
 			

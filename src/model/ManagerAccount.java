@@ -108,7 +108,7 @@ public class ManagerAccount {
 		ArrayList<ManagerAccount> accounts = new ArrayList<ManagerAccount>();
 		accounts = ManagerAccountDAO.getInstance().selectAll();
 		for (int i = 0; i < accounts.size(); i++) {
-			if (this.getAccountName().equals(accounts.get(i).getAccountName())) {
+			if (this.getAccountName().equals(accounts.get(i).getAccountName())||this.userId.equals(accounts.get(i).getUserId())) {
 				return true;
 			}
 		}

@@ -4,12 +4,13 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.LocalPersonController">
    <children>
-      <AnchorPane layoutY="7.0" prefHeight="750.0" prefWidth="1000.0">
+      <AnchorPane layoutX="-14.0" prefHeight="750.0" prefWidth="1000.0">
          <children>
             <Label layoutX="451.0" layoutY="30.0" text="Quản lí nhà văn hóa" />
             <TableView fx:id="table" layoutX="250.0" layoutY="150.0" prefHeight="350.0" prefWidth="700.0">
@@ -34,6 +35,17 @@
                   <Button layoutX="30.0" mnemonicParsing="false" onAction="#switchToWorkManagement" prefHeight="80.0" prefWidth="151.0" text="quản lí đăng nhập" />
                </children>
             </VBox>
+            <TextField fx:id="textid" layoutX="250.0" layoutY="107.0" prefHeight="25.0" prefWidth="99.0" />
+            <TextField fx:id="textsdt" layoutX="559.0" layoutY="107.0" prefHeight="25.0" prefWidth="91.0" />
+            <TextField fx:id="textstatus" layoutX="748.0" layoutY="107.0" prefHeight="25.0" prefWidth="83.0" />
+            <TextField fx:id="textname" layoutX="356.0" layoutY="107.0" prefHeight="25.0" prefWidth="99.0" />
+            <TextField fx:id="texthostid" layoutX="462.0" layoutY="107.0" prefHeight="25.0" prefWidth="91.0" />
+            <TextField fx:id="textaddress" layoutX="656.0" layoutY="107.0" prefHeight="25.0" prefWidth="83.0" />
+            <TextField fx:id="textnote" layoutX="839.0" layoutY="107.0" prefHeight="25.0" prefWidth="106.0" />
+            <Button layoutX="250.0" layoutY="520.0" mnemonicParsing="false" onAction="#insertLocalPerson" text="nhập  " />
+            <Button layoutX="250.0" layoutY="600.0" mnemonicParsing="false" onAction="#deleteLocalPerson" prefHeight="25.0" prefWidth="49.0" text="xóa" />
+            <Button layoutX="350.0" layoutY="520.0" mnemonicParsing="false" onAction="#updateLocalPerson" text="cập nhật" />
+            <Button layoutX="350.0" layoutY="600.0" mnemonicParsing="false" onAction="#clearInfor" text="làm mới" />
          </children>
       </AnchorPane>
    </children>

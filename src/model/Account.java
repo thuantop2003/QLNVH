@@ -87,7 +87,7 @@ public class Account {
 		ArrayList<Account> accounts = new ArrayList<Account>();
 		accounts = AccountDAO.getInstance().selectAll();
 		for (int i = 0; i < accounts.size(); i++) {
-			if (this.accountName.equals(accounts.get(i).getAccountName())) {
+			if (this.accountName.equals(accounts.get(i).getAccountName())||this.userId.equals(accounts.get(i).getUserId())) {
 				return true;
 			}
 		}

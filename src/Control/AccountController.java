@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import DAO.AccountDAO;
+import DAO.LocalPersonDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,6 +26,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Account;
 import model.ManagerAccount;
+import model.Person;
 
 public class AccountController implements Initializable {
 	@FXML
@@ -118,6 +120,13 @@ public class AccountController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 		
+	}
+	public void deleteAccount(ActionEvent event){
+		Account Selected = table.getSelectionModel().getSelectedItem();
+		if(Selected != null) {
+		AccountDAO.getInstance().delete(Selected);
+		accountlist.remove(Selected);
+		}
 	}
 	
 
