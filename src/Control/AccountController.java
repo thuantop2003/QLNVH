@@ -17,9 +17,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import model.Account;
+import model.ManagerAccount;
 
 public class AccountController implements Initializable {
 	@FXML
@@ -40,6 +45,7 @@ public class AccountController implements Initializable {
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
+	
 	
 	private ObservableList<Account> accountlist=FXCollections.observableArrayList();
 
@@ -105,4 +111,14 @@ public class AccountController implements Initializable {
 		stage.show();
 	}
 	
+	public void makeNewAccount(ActionEvent event) throws IOException{
+		root = FXMLLoader.load(getClass().getResource("/view/MakeNewAccount.fxml"));
+		stage=new Stage();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+		
+	}
+	
+
 }

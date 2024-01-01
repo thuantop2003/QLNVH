@@ -9,7 +9,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.AccountController">
    <children>
-      <AnchorPane layoutY="14.0" prefHeight="750.0" prefWidth="1000.0">
+      <AnchorPane layoutX="28.0" layoutY="32.0" prefHeight="750.0" prefWidth="1000.0">
          <children>
             <Label layoutX="451.0" layoutY="30.0" text="Quản lí nhà văn hóa" />
             <TableView fx:id="table" layoutX="250.0" layoutY="150.0" prefHeight="350.0" prefWidth="700.0">
@@ -31,6 +31,9 @@
                   <Button mnemonicParsing="false" onAction="#switchToWorkManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí đăng nhập" />
                </children>
             </VBox>
+            <Button fx:id="makenewaccount" layoutX="250.0" layoutY="529.0" mnemonicParsing="false" onAction="#makeNewAccount" text="tạo tài khoản mới" />
+            <Button layoutX="250.0" layoutY="614.0" mnemonicParsing="false" text="xóa tài khoản" />
+            <Button layoutX="835.0" layoutY="529.0" mnemonicParsing="false" text="cập nhật tài khoản" />
          </children>
       </AnchorPane>
    </children>

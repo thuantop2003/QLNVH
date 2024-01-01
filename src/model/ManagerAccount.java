@@ -104,6 +104,16 @@ public class ManagerAccount {
 		}
 		return false;
 	}
+	public boolean checkManagerAccountName(){
+		ArrayList<ManagerAccount> accounts = new ArrayList<ManagerAccount>();
+		accounts = ManagerAccountDAO.getInstance().selectAll();
+		for (int i = 0; i < accounts.size(); i++) {
+			if (this.getAccountName().equals(accounts.get(i).getAccountName())) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 	// đổi mật khẩu cho tài khoản quản lí
@@ -149,10 +159,10 @@ public class ManagerAccount {
 	}
 	
 	//tạo tài khoản thường mới
-	public int makeNewAccount(Account t) {
-		if(!t.checkAccount()) {
-		AccountDAO.getInstance().insert(t);
-		return 1;
+	public static int makeNewAccount(Account t) {
+		if(!t.checkAccountName()) {
+		int tt=AccountDAO.getInstance().insert(t);
+		return tt;
 		}
 		return 0;
 	}
@@ -160,7 +170,7 @@ public class ManagerAccount {
 	
 	//tạo tài khoản quản lí mới
 	public int makeNewManagerAccount(ManagerAccount t) {
-		if(!t.checkManagerAccount()) {
+		if(!t.checkManagerAccountName()) {
 		ManagerAccountDAO.getInstance().insert(t);
 		return 1;
 		}

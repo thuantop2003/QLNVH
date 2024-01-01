@@ -83,6 +83,16 @@ public class Account {
 		}
 		return false;
 	}
+	public boolean checkAccountName() {
+		ArrayList<Account> accounts = new ArrayList<Account>();
+		accounts = AccountDAO.getInstance().selectAll();
+		for (int i = 0; i < accounts.size(); i++) {
+			if (this.accountName.equals(accounts.get(i).getAccountName())) {
+				return true;
+			}
+		}
+		return false;
+	}
 	// đổi mật khẩu
 	public boolean changePassword(String newpassword){
 		if(this.checkAccount()) {

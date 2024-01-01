@@ -61,6 +61,15 @@ public class RoomController implements Initializable {
         price.setCellValueFactory(new PropertyValueFactory<Room, String>("price"));
         capacity.setCellValueFactory(new PropertyValueFactory<Room, String>("capacity"));
         table.setItems(accountlist);
+        table.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 1) {
+                // Lấy dữ liệu của hàng được chọn
+                Room selectedRoom = table.getSelectionModel().getSelectedItem();
+                if (selectedRoom != null) {
+                    System.out.println(selectedRoom.toString());
+                }
+            }
+        });
 	}
 	
 	public void switchToAccountManagement(ActionEvent event) throws IOException{
