@@ -27,6 +27,19 @@ public class Device implements InterfaceSearch<Device> {
         this.note = note;
         this.status= status; ;
 	}
+	
+	
+	
+
+	public Device(String devicename, int amount, int price,  String status,int roomId,String note) {
+		super();
+		this.devicename = devicename;
+		this.amount = amount;
+		this.roomId = roomId;
+		this.price = price;
+		this.note = note;
+		this.status = status;
+	}
 
 	public String getStatus() {
 		return status;

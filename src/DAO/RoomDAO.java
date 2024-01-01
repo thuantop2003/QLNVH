@@ -132,9 +132,9 @@ public class RoomDAO implements DAOInterface<Room> {
 				int price = rs.getInt("price");
 				String status= rs.getString("status");
 				String note = rs.getString("note");
-				int roomId= rs.getInt("roomid");
+				int roomid= rs.getInt("roomid");
 		
-				Room a = new Room(name, capacity, price, status, note);
+				Room a = new Room(roomid, name, capacity, price, status, note);
 				ketQua =a;
 				
 			}
@@ -163,9 +163,9 @@ public class RoomDAO implements DAOInterface<Room> {
 				int price = rs.getInt("price");
 				String status= rs.getString("status");
 				String note = rs.getString("note");
-				int roomId= rs.getInt("roomid");
+				int roomid= rs.getInt("roomid");
 		
-				Room a = new Room(name, capacity, price, status, note);
+				Room a = new Room(roomid, name, capacity, price, status, note);
 				ketQua =a;
 				
 			}
@@ -193,8 +193,8 @@ public class RoomDAO implements DAOInterface<Room> {
 				int price = rs.getInt("price");
 				String status= rs.getString("status");
 				String note = rs.getString("note");
-				int roomId= rs.getInt("roomId");
-				Room a = new Room( name,capacity, price, status, note);
+				int roomid= rs.getInt("roomId");
+				Room a = new Room(roomid, name,capacity, price, status, note);
 				ketQua.add(a);
 				
 			}

@@ -166,7 +166,7 @@ public class LocalPersonController implements Initializable {
 	}
 	
 	public void switchToAccountManagement(ActionEvent event) throws IOException{
-		root = FXMLLoader.load(getClass().getResource("/Controlsearch/Account.fxml"));
+		root = FXMLLoader.load(getClass().getResource("/view/Account.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
 		stage.setScene(scene);
