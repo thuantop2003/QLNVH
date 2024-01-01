@@ -32,7 +32,9 @@
                </children>
             </VBox>
             <Button fx:id="makenewaccount" layoutX="250.0" layoutY="529.0" mnemonicParsing="false" onAction="#makeNewAccount" text="tạo tài khoản mới" />
-            <Button layoutX="250.0" layoutY="614.0" mnemonicParsing="false" onAction="#deleteAccount" text="xóa tài khoản" />
+            <Button layoutX="250.0" layoutY="614.0" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="25.0" prefWidth="109.0" text="xóa tài khoản" />
+            <Button layoutX="440.0" layoutY="529.0" mnemonicParsing="false" onAction="#ChangePassword" text="đổ mật khẩu" />
+            <Button layoutX="440.0" layoutY="614.0" mnemonicParsing="false" text="thay đổi câu hỏi bảo mật" />
          </children>
       </AnchorPane>
    </children>

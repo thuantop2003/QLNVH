@@ -128,6 +128,14 @@ public class AccountController implements Initializable {
 		accountlist.remove(Selected);
 		}
 	}
+	public void ChangePassword(ActionEvent event) throws IOException{
+		root = FXMLLoader.load(getClass().getResource("/view/ChangePassword.fxml"));
+		stage=new Stage();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+		
+	}
 	
 
 }

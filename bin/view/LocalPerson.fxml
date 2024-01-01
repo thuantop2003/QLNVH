@@ -10,7 +10,7 @@
 
 <AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.LocalPersonController">
    <children>
-      <AnchorPane layoutX="-14.0" prefHeight="750.0" prefWidth="1000.0">
+      <AnchorPane fx:id="searchChoice" layoutX="-7.0" prefHeight="750.0" prefWidth="1000.0">
          <children>
             <Label layoutX="451.0" layoutY="30.0" text="Quản lí nhà văn hóa" />
             <TableView fx:id="table" layoutX="250.0" layoutY="150.0" prefHeight="350.0" prefWidth="700.0">
@@ -46,6 +46,14 @@
             <Button layoutX="250.0" layoutY="600.0" mnemonicParsing="false" onAction="#deleteLocalPerson" prefHeight="25.0" prefWidth="49.0" text="xóa" />
             <Button layoutX="350.0" layoutY="520.0" mnemonicParsing="false" onAction="#updateLocalPerson" text="cập nhật" />
             <Button layoutX="350.0" layoutY="600.0" mnemonicParsing="false" onAction="#clearInfor" text="làm mới" />
+            <Button layoutX="450.0" layoutY="520.0" mnemonicParsing="false" onAction="#searchByName" text="tìm kiếm theo tên" />
+            <Button layoutX="450.0" layoutY="600.0" mnemonicParsing="false" onAction="#searchById" text="tìm kiếm theo id" />
+            <Button layoutX="650.0" layoutY="520.0" mnemonicParsing="false" onAction="#searchByHostId" text="tìm kiếm theo hostid" />
+            <Button layoutX="658.0" layoutY="600.0" mnemonicParsing="false" onAction="#searchByStatus" text="tìm kiếm theo trạng thái" />
+            <TextField fx:id="textsname" layoutX="450.0" layoutY="545.0" />
+            <TextField fx:id="textsid" layoutX="450.0" layoutY="625.0" />
+            <TextField fx:id="textshostid" layoutX="648.0" layoutY="545.0" />
+            <TextField fx:id="textsstatus" layoutX="656.0" layoutY="625.0" />
          </children>
       </AnchorPane>
    </children>

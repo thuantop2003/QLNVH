@@ -21,6 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Account;
@@ -66,7 +67,15 @@ public class LocalPersonController implements Initializable {
 	@FXML
 	private TextField textnote;
 	
+	@FXML
+	private TextField textsname;
 	
+	@FXML
+	private TextField textsid;
+	@FXML
+	private TextField textshostid;
+	@FXML
+	private TextField textsstatus;
 	
 	
 	private ObservableList<Person> accountlist=FXCollections.observableArrayList();
@@ -105,8 +114,59 @@ public class LocalPersonController implements Initializable {
             }
 	});
 	}
+	public void searchByName (ActionEvent event) throws IOException{
+		System.out.println(textsname.getText());
+		if(textsname.getText()!="") {
+		ArrayList<Person> accountlist1= new ArrayList<>();
+		for (int i=0;i<accountlist.size();i++) {
+			if(accountlist.get(i).getName().equals(textsname.getText())) {
+				accountlist1.add(accountlist.get(i));
+			}
+		}
+		accountlist.clear();
+		accountlist.addAll(accountlist1);		}
+	}
+	
+	public void searchById (ActionEvent event) throws IOException{
+		if(textsid.getText()!="") {
+		ArrayList<Person> accountlist1= new ArrayList<>();
+		for (int i=0;i<accountlist.size();i++) {
+			if(accountlist.get(i).getId().equals(textsid.getText())) {
+				accountlist1.add(accountlist.get(i));
+			}
+		}
+		accountlist.clear();
+		accountlist.addAll(accountlist1);
+		}
+	}
+	
+	public void searchByHostId (ActionEvent event) throws IOException{
+		if(textshostid.getText()!="") {
+		ArrayList<Person> accountlist1= new ArrayList<>();
+		for (int i=0;i<accountlist.size();i++) {
+			if(accountlist.get(i).getHostId().equals(textshostid.getText())) {
+				accountlist1.add(accountlist.get(i));
+			}
+		}
+		accountlist.clear();
+		accountlist.addAll(accountlist1);
+		}
+	}
+	public void searchByStatus (ActionEvent event) throws IOException{
+		if(textsstatus.getText()!="") {
+		ArrayList<Person> accountlist1= new ArrayList<>();
+		for (int i=0;i<accountlist.size();i++) {
+			if(accountlist.get(i).getStatus().equals(textsstatus.getText())) {
+				accountlist1.add(accountlist.get(i));
+			}
+		}
+		accountlist.clear();
+		accountlist.addAll(accountlist1);
+		}
+	}
+	
 	public void switchToAccountManagement(ActionEvent event) throws IOException{
-		root = FXMLLoader.load(getClass().getResource("/view/Account.fxml"));
+		root = FXMLLoader.load(getClass().getResource("/Controlsearch/Account.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
 		stage.setScene(scene);
@@ -206,6 +266,9 @@ public class LocalPersonController implements Initializable {
     	textstatus.setText(null);
     	textaddress.setText(null);
     	textnote.setText(null);
+    	accountlist.clear();
+    	ArrayList<Person> a = LocalPersonDAO.getInstance().selectAll();
+        accountlist.addAll(a);
 	}
 	
 	private static void showAlert(AlertType alertType, String title, String content) {
