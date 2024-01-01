@@ -125,7 +125,7 @@
 			Connection connection = JDBCUtil.getConnection();
 			
 			String sql= "SELECT * FROM renter "
-						+ "WHERE renterid = ?";
+						+ "WHERE id = ?";
 			System.out.println(sql);
 			try {
 				PreparedStatement pst = connection.prepareStatement(sql);

@@ -122,10 +122,12 @@ public class RoomDAO implements DAOInterface<Room> {
 	public Room selectByID(int t) {
 		Room ketQua = new Room();
 		Connection connection = JDBCUtil.getConnection();
-		String sql= "SELECT * FROM room where roomid = t ";
+		String sql= "SELECT * FROM room where roomid =  ?";
 		System.out.println(sql);
 		try {
-			ResultSet rs = connection.createStatement().executeQuery(sql);
+			PreparedStatement pst = connection.prepareStatement(sql);
+			pst.setInt(1,t);
+			ResultSet rs =pst.executeQuery();
 			while (rs.next()) {
 				String name = rs.getString("name");
 				int capacity = rs.getInt("capacity");
