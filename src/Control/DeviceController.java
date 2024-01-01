@@ -2,12 +2,11 @@ package Control;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import DAO.AccountDAO;
-import DAO.WorkDAO;
+import DAO.DeviceDAO;
+import DAO.RoomDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,42 +20,55 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.Account;
-import model.Work;
+import model.Device;
+import model.Room;
 
-public class WorkController implements Initializable {
+public class DeviceController implements Initializable {
 	@FXML
-	private TableView<Work> table;
+	private TableView<Device> table;
 	
 	@FXML
-	private TableColumn<Work,String> userId;
+	private TableColumn<Device,String> deviceid;
 	
 	@FXML
-	private TableColumn<Work,String> accountName;
+	private TableColumn<Device,String> devicename;
 	
 	@FXML
-	private TableColumn<Work,LocalDateTime> timeloggin;
+	private TableColumn<Device,String> amount;
 	
 	@FXML
-	private TableColumn<Work,LocalDateTime> timeloggout;
+	private TableColumn<Device,String> price;
 	
-	private ObservableList<Work> accountlist=FXCollections.observableArrayList();
+	@FXML
+	private TableColumn<Device,String> status;
+	
+	@FXML
+	private TableColumn<Device,String> note;
+	
+	@FXML
+	private TableColumn<Device,String> roomid;
 	
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
-
+	
+	
+	private ObservableList<Device> accountlist=FXCollections.observableArrayList();
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-
-		ArrayList<Work> a = WorkDAO.getInstance().selectAll();
+		ArrayList<Device> a = DeviceDAO.getInstance().selectAll();
         accountlist.addAll(a);
-		userId.setCellValueFactory(new PropertyValueFactory<Work, String>("userid"));
-		timeloggin.setCellValueFactory(new PropertyValueFactory<Work, LocalDateTime>("timeloggin"));
-		accountName.setCellValueFactory(new PropertyValueFactory<Work, String>("accountName"));
-		timeloggout.setCellValueFactory(new PropertyValueFactory<Work, LocalDateTime>("timeloggout"));
-		table.setItems(accountlist);
+        deviceid.setCellValueFactory(new PropertyValueFactory<Device, String>("deviceId"));
+        roomid.setCellValueFactory(new PropertyValueFactory<Device, String>("roomId"));
+        devicename.setCellValueFactory(new PropertyValueFactory<Device, String>("name"));
+        status.setCellValueFactory(new PropertyValueFactory<Device, String>("status"));
+        note.setCellValueFactory(new PropertyValueFactory<Device, String>("note"));
+        price.setCellValueFactory(new PropertyValueFactory<Device, String>("price"));
+        amount.setCellValueFactory(new PropertyValueFactory<Device, String>("amount"));
+        table.setItems(accountlist);
 	}
+	
 	public void switchToAccountManagement(ActionEvent event) throws IOException{
 		root = FXMLLoader.load(getClass().getResource("/view/Account.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
@@ -106,5 +118,5 @@ public class WorkController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+
 }

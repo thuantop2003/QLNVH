@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import DAO.AccountDAO;
+import DAO.ActivityDAO;
+import DAO.RentDAO;
 import DAO.WorkDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,25 +24,37 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Account;
+import model.Activity;
+import model.Rent;
 import model.Work;
 
-public class WorkController implements Initializable {
+public class RentController implements Initializable {
 	@FXML
-	private TableView<Work> table;
+	private TableView<Rent> table;
 	
 	@FXML
-	private TableColumn<Work,String> userId;
+	private TableColumn<Rent,String> rentid;
 	
 	@FXML
-	private TableColumn<Work,String> accountName;
+	private TableColumn<Rent,String> rentname;
+
+	@FXML
+	private TableColumn<Rent,String> renterid;
+
+	@FXML
+	private TableColumn<Rent,String> roomid;
 	
 	@FXML
-	private TableColumn<Work,LocalDateTime> timeloggin;
+	private TableColumn<Rent,String> note;
 	
 	@FXML
-	private TableColumn<Work,LocalDateTime> timeloggout;
+	private TableColumn<Rent,LocalDateTime> timestart;
 	
-	private ObservableList<Work> accountlist=FXCollections.observableArrayList();
+	@FXML
+	private TableColumn<Rent,LocalDateTime> timefinish;
+	
+	
+	private ObservableList<Rent> accountlist=FXCollections.observableArrayList();
 	
 	private Stage stage;
 	private Scene scene;
@@ -49,12 +63,15 @@ public class WorkController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		ArrayList<Work> a = WorkDAO.getInstance().selectAll();
+		ArrayList<Rent> a = RentDAO.getInstance().selectAll();
         accountlist.addAll(a);
-		userId.setCellValueFactory(new PropertyValueFactory<Work, String>("userid"));
-		timeloggin.setCellValueFactory(new PropertyValueFactory<Work, LocalDateTime>("timeloggin"));
-		accountName.setCellValueFactory(new PropertyValueFactory<Work, String>("accountName"));
-		timeloggout.setCellValueFactory(new PropertyValueFactory<Work, LocalDateTime>("timeloggout"));
+        rentid.setCellValueFactory(new PropertyValueFactory<Rent, String>("rentid"));
+        renterid.setCellValueFactory(new PropertyValueFactory<Rent, String>("renterid"));
+        rentname.setCellValueFactory(new PropertyValueFactory<Rent, String>("rentname"));
+		roomid.setCellValueFactory(new PropertyValueFactory<Rent, String>("roomid"));
+		timestart.setCellValueFactory(new PropertyValueFactory<Rent, LocalDateTime>("timestart"));		
+		timefinish.setCellValueFactory(new PropertyValueFactory<Rent, LocalDateTime>("timefinish"));
+		note.setCellValueFactory(new PropertyValueFactory<Rent, String>("note"));
 		table.setItems(accountlist);
 	}
 	public void switchToAccountManagement(ActionEvent event) throws IOException{

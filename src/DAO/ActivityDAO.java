@@ -21,17 +21,18 @@ public class ActivityDAO  {
 
 	public int insert(Activity t) {
 		Connection connection = JDBCUtil.getConnection();
-		int ketqua=0;
-		String sql= "INSERT INTO activity (activityid, name, timestart, timefinish, note)"
-				+ "VALUES(?,?,?,?,?)";
+		int ketqua = 0;
+		String sql= "INSERT INTO activity (activityid, activityname,roomid, timestart, timefinish, note)"
+				+ "VALUES(?,?,?,?,?,?)";
 		try {
 			PreparedStatement pst = connection.prepareStatement(sql);
 			
-			pst.setInt(1, t.getActivityId());
-			pst.setString(2, t.getActivityName());
-			pst.setString(3, t.getTimeStart());
-			pst.setString(4, t.getTimeFinish());
-			pst.setString(5, t.getNote());
+			pst.setInt(1, t.getActivityid());
+			pst.setString(2, t.getActivityname());
+			pst.setInt(3, t.getRoomid());
+			pst.setTimestamp(4, t.getTimestart());
+			pst.setTimestamp(5, t.getTimefinish());
+			pst.setString(6, t.getNote());
 			ketqua =pst.executeUpdate();
 			System.out.println(ketqua);
 		} catch (SQLException e) {
@@ -49,15 +50,17 @@ public class ActivityDAO  {
 		Connection connection = JDBCUtil.getConnection();
 		int ketqua=0;
 		String sql= "UPDATE activity "
-				+" SET name=?, timestart=?, timefinish=?"
+				+" SET activityname=?,roomid=?, timestart=?, timefinish=?, note = ?"
 				+" WHERE activityid=?";
 		PreparedStatement pst;
 		try {
-			pst = connection.prepareStatement(sql);
-			pst.setInt(4, t.getActivityId());
-			pst.setString(1, t.getActivityName());
-			pst.setString(2, t.getTimeStart());
-			pst.setString(3, t.getTimeFinish());
+			pst = connection.prepareStatement(sql);			
+			pst.setString(1, t.getActivityname());
+			pst.setInt(2, t.getRoomid());
+			pst.setTimestamp(3, t.getTimestart());
+			pst.setTimestamp(4, t.getTimefinish());
+			pst.setString(5, t.getNote());
+			pst.setInt(6, t.getActivityid());
 			ketqua =pst.executeUpdate();
 			System.out.println(ketqua);
 		} catch (SQLException e) {
@@ -78,7 +81,7 @@ public class ActivityDAO  {
 		System.out.println(sql);
 		try {
 			PreparedStatement pst = connection.prepareStatement(sql);
-			pst.setInt(1,t.getActivityId());
+			pst.setInt(1,t.getActivityid());
 			ketqua =pst.executeUpdate();
 			System.out.println(ketqua);
 		} catch (SQLException e) {
@@ -102,11 +105,12 @@ public class ActivityDAO  {
 			ResultSet rs = connection.createStatement().executeQuery(sql);
 			while (rs.next()) {
 				int activityid = rs.getInt("activityid");
-				String activityname = rs.getString("name");
-				String timestart = rs.getString("timestart");
-				String timefinish = rs.getString("timefinish");
+				String activityname = rs.getString("activityname");
+				int roomid = rs.getInt("roomid");
+				Timestamp timestart = rs.getTimestamp("timestart");
+				Timestamp timefinish = rs.getTimestamp("timefinish");
 				String note = rs.getString("note");
-				Activity a = new Activity(activityid,activityname,timestart,timefinish,note);
+				Activity a = new Activity(activityid,activityname,roomid,timestart,timefinish,note);
 				ketQua.add(a);
 				
 			}
@@ -127,16 +131,17 @@ public class ActivityDAO  {
 			Connection connection = JDBCUtil.getConnection();
 			String sql= "SELECT * FROM activity WHERE activityid =? ";
 			PreparedStatement pst = connection.prepareStatement(sql);
-			pst.setInt(1,t.getActivityId());
+			pst.setInt(1,t.getActivityid());
 			System.out.println(sql);
 			ResultSet rs =pst.executeQuery();
 			while (rs.next()) {
 				int activityid = rs.getInt("activityid");
-				String activityname = rs.getString("name");
-				String timestart = rs.getString("timestart");
-				String timefinish = rs.getString("timefinish");
+				String activityname = rs.getString("activityname");
+				int roomid = rs.getInt("roomid");
+				Timestamp timestart = rs.getTimestamp("timestart");
+				Timestamp timefinish = rs.getTimestamp("timefinish");
 				String note = rs.getString("note");
-				Activity a = new Activity(activityid,activityname,timestart,timefinish,note);
+				Activity a = new Activity(activityid,activityname,roomid,timestart,timefinish,note);
 				ketQua = a;
 			}
 			
@@ -155,18 +160,19 @@ public class ActivityDAO  {
 		Activity ketQua = null;
 		try {
 			Connection connection = JDBCUtil.getConnection();
-			String sql= "SELECT * FROM activity WHERE name =? ";
+			String sql= "SELECT * FROM activity WHERE activityname =? ";
 			PreparedStatement pst = connection.prepareStatement(sql);
-			pst.setString(1,t.getActivityName());
+			pst.setString(1,t.getActivityname());
 			System.out.println(sql);
 			ResultSet rs =pst.executeQuery();
 			while (rs.next()) {
 				int activityid = rs.getInt("activityid");
-				String activityname = rs.getString("name");
-				String timestart = rs.getString("timestart");
-				String timefinish = rs.getString("timefinish");
+				String activityname = rs.getString("activityname");
+				int roomid = rs.getInt("roomid");
+				Timestamp timestart = rs.getTimestamp("timestart");
+				Timestamp timefinish = rs.getTimestamp("timefinish");
 				String note = rs.getString("note");
-				ketQua = new Activity(activityid,activityname,timestart,timefinish,note);
+				ketQua = new Activity(activityid,activityname,roomid,timestart,timefinish,note);
 			}
 			
 			JDBCUtil.CloseConnection(connection);
@@ -177,89 +183,24 @@ public class ActivityDAO  {
 		return ketQua;
 		
 	}
-	public ArrayList<LocalDateTime> CheckFreeActivity( LocalDateTime fromtime, LocalDateTime totime){
-		ArrayList<LocalDateTime> from = new ArrayList<>();
-		ArrayList<LocalDateTime> to = new ArrayList<>();
-		Connection connection = JDBCUtil.getConnection();
-		LocalDateTime timebegin = fromtime;
-		LocalDateTime timeend = totime;
-		String sql1= "SELECT timestart FROM activity WHERE timestart between ? and ? and timefinish between ? and ? ORDER BY timestart asc ";
-		
-		String sql2= "SELECT timefinish FROM activity WHERE timestart between ? and ? and timefinish between ? and ? ORDER BY timefinish asc ";
-
-		String sql3= "SELECT timefinish FROM activity WHERE ? between timestart and timefinish";
-	
-		String sql4= "SELECT timestart FROM activity WHERE ? between timestart and timefinish";
-		
-		try {
-			PreparedStatement pst3 = connection.prepareStatement(sql3);
-			pst3.setObject(1, fromtime);
-			System.out.println(sql3);
-			ResultSet rs3 =pst3.executeQuery();
-			if (rs3.next()) {
-			    timebegin = (LocalDateTime) rs3.getObject("timefinish");
-			}
-			PreparedStatement pst4 = connection.prepareStatement(sql4);
-			pst4.setObject(1,totime);
-			System.out.println(sql4);
-			ResultSet rs4 =pst4.executeQuery();
-			if( rs4.next()) { 
-				timeend = (LocalDateTime) rs4.getObject("timestart");
-			}
-			from.add(timebegin);
-			
-			PreparedStatement pst1 = connection.prepareStatement(sql1);
-			pst1.setObject(1,fromtime);
-			pst1.setObject(2, totime);
-			pst1.setObject(3,fromtime);
-			pst1.setObject(4, totime);
-			System.out.println(sql1);
-			ResultSet rs1 =pst1.executeQuery();
-			while (rs1.next()) {
-				to.add((LocalDateTime) rs1.getObject("timestart"));
-			}
-			PreparedStatement pst2 = connection.prepareStatement(sql2);
-			pst2.setObject(1,fromtime);
-			pst2.setObject(2, totime);
-			pst2.setObject(3,fromtime);
-			pst2.setObject(4, totime);
-			System.out.println(sql2);
-			ResultSet rs2 =pst2.executeQuery();
-			while (rs2.next()) {
-				from.add((LocalDateTime) rs2.getObject("timefinish"));
-			}
-			to.add(timeend);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		ArrayList<LocalDateTime> ketQua = new ArrayList<>();
-		for(int i=0 ; i< to.size(); i++ ) {
-			ketQua.add(from.get(i));
-			ketQua.add(to.get(i));
-			System.out.println("from"+from.get(i)+ "to"+ to.get(i));
-		}
-		
-		JDBCUtil.CloseConnection(connection);
-		return ketQua;
-	}
-	public ArrayList<Timestamp> CheckFreeActivity( Timestamp fromtime, Timestamp totime){
+	public ArrayList<Timestamp> CheckFreeActivity(int t, Timestamp fromtime, Timestamp totime){
 		ArrayList<Timestamp> from = new ArrayList<>();
 		ArrayList<Timestamp> to = new ArrayList<>();
 		Connection connection = JDBCUtil.getConnection();
 		Timestamp timebegin = fromtime;
 		Timestamp timeend = totime;
-		String sql1= "SELECT timestart FROM activity WHERE timestart between ? and ? and timefinish between ? and ? ORDER BY timestart asc ";
+		String sql1= "SELECT timestart FROM activity WHERE timestart between ? and ? and timefinish between ? and ? and roomid = ? ORDER BY timestart asc ";
 		
-		String sql2= "SELECT timefinish FROM activity WHERE timestart between ? and ? and timefinish between ? and ? ORDER BY timefinish asc ";
+		String sql2= "SELECT timefinish FROM activity WHERE timestart between ? and ? and timefinish between ? and ? and roomid = ? ORDER BY timefinish asc ";
 
-		String sql3= "SELECT timefinish FROM activity WHERE ? between timestart and timefinish";
+		String sql3= "SELECT timefinish FROM activity WHERE ? between timestart and timefinish and roomid = ?";
 	
-		String sql4= "SELECT timestart FROM activity WHERE ? between timestart and timefinish";
+		String sql4= "SELECT timestart FROM activity WHERE ? between timestart and timefinish and roomid = ?";
 		
 		try {
 			PreparedStatement pst3 = connection.prepareStatement(sql3);
 			pst3.setTimestamp(1, fromtime);
+			pst3.setInt(2, t);
 			System.out.println(sql3);
 			ResultSet rs3 =pst3.executeQuery();
 			if (rs3.next()) {
@@ -267,6 +208,7 @@ public class ActivityDAO  {
 			}
 			PreparedStatement pst4 = connection.prepareStatement(sql4);
 			pst4.setTimestamp(1,totime);
+			pst4.setInt(2, t);
 			System.out.println(sql4);
 			ResultSet rs4 =pst4.executeQuery();
 			if( rs4.next()) { 
@@ -279,6 +221,7 @@ public class ActivityDAO  {
 			pst1.setTimestamp(2, totime);
 			pst1.setTimestamp(3,fromtime);
 			pst1.setTimestamp(4, totime);
+			pst1.setInt(5, t);
 			System.out.println(sql1);
 			ResultSet rs1 =pst1.executeQuery();
 			while (rs1.next()) {
@@ -289,6 +232,7 @@ public class ActivityDAO  {
 			pst2.setTimestamp(2, totime);
 			pst2.setTimestamp(3, fromtime);
 			pst2.setTimestamp(4, totime);
+			pst2.setInt(5, t);
 			System.out.println(sql2);
 			ResultSet rs2 =pst2.executeQuery();
 			while (rs2.next()) {
@@ -313,9 +257,9 @@ public class ActivityDAO  {
 		String ketQua = null;
 		try {
 			Connection connection = JDBCUtil.getConnection();
-			String sql= "SELECT timefinish FROM activity WHERE name =? ";
+			String sql= "SELECT timefinish FROM activity WHERE activityname =? ";
 			PreparedStatement pst = connection.prepareStatement(sql);
-			pst.setString(1,t.getActivityName());
+			pst.setString(1,t.getActivityname());
 			System.out.println(sql);
 			ResultSet rs =pst.executeQuery();
 			while (rs.next()) {
@@ -341,11 +285,12 @@ public class ActivityDAO  {
 			ResultSet rs = connection.createStatement().executeQuery(sql);
 			while (rs.next()) {
 				int activityid = rs.getInt("activityid");
-				String activityname = rs.getString("name");
-				String timestart = rs.getString("timestart");
-				String timefinish = rs.getString("timefinish");
+				String activityname = rs.getString("activityname");
+				int roomid = rs.getInt("roomid");
+				Timestamp timestart = rs.getTimestamp("timestart");
+				Timestamp timefinish = rs.getTimestamp("timefinish");
 				String note = rs.getString("note");
-				Activity a = new Activity(activityid,activityname,timestart,timefinish,note);
+				Activity a = new Activity(activityid,activityname,roomid,timestart,timefinish,note);
 				ketQua = a;
 				
 			}

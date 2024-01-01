@@ -1,19 +1,23 @@
 package application;
-
+	
 import java.util.ArrayList;
 
-import DAO.AccountDAO;
-import DAO.RoomDAO;
-import DAO.WorkDAO;
-import model.Account;
-import model.Room;
-import model.Work;
+import DAO.DeviceDAO;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.stage.Stage;
+import model.Device;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 
-public class test {
-public static void main(String[] args) {
-	ArrayList<Room> x= RoomDAO.getInstance().selectAll();
-	for(int i=0;i<x.size();i++) {
-		System.out.println(x.get(i).toString());
+
+public class test{
+	public static void main(String[] args) {
+		ArrayList<Device> a = DeviceDAO.getInstance().selectAll();
+		for (int i =0;i< a.size();i++ ) {
+			System.out.println(a.toString());
+			
+		}
 	}
-}
+	
 }

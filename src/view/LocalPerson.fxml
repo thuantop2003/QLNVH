@@ -25,10 +25,10 @@
             </TableView>
             <VBox layoutX="30.0" layoutY="80.0" prefHeight="564.0" prefWidth="150.0">
                <children>
-                  <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="150.0" text="quản lí thiết bị" />
-                  <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="150.0" text="quản lí phòng ban" />
-                  <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="150.0" text="quản lí hoạt động" />
-                  <Button mnemonicParsing="false" prefHeight="80.0" prefWidth="150.0" text="quản lí đơn thuê" />
+                  <Button mnemonicParsing="false" onAction="#switchToDeviceManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí thiết bị" />
+                  <Button mnemonicParsing="false" onAction="#switchToRoomManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí phòng ban" />
+                  <Button mnemonicParsing="false" onAction="#switchToActivityManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí hoạt động" />
+                  <Button mnemonicParsing="false" onAction="#switchToRentManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí đơn thuê" />
                   <Button mnemonicParsing="false" onAction="#switchToLocalPersonManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí nhân khẩu" />
                   <Button mnemonicParsing="false" onAction="#switchToAccountManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí tài khoản" />
                   <Button layoutX="30.0" mnemonicParsing="false" onAction="#switchToWorkManagement" prefHeight="80.0" prefWidth="151.0" text="quản lí đăng nhập" />

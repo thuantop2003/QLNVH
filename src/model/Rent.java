@@ -1,240 +1,101 @@
 package model;
 
-
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 
-import DAO.DeviceDAO;
-import DAO.RentDAO;
+import DAO.ActivityDAO;
 
-public class Rent {
+
+public class Rent  {
 	private int rentid;
-    private int activityid;
-    private int deviceid;
+    private String rentname;
     private int roomid;
-    private int roomAmount;
-    private int deviceAmount;
+    private Timestamp timestart;
+    private Timestamp timefinish;
     private String renterid;
-    private String rentername;
-    private String activityname;
-    private String roomname;
-    private String devicename;
-    
-    
-	public String getRentername() {
-		return rentername;
-	}
-
-
-	public void setRentername(String rentername) {
-		this.rentername = rentername;
-	}
-
-
-	public String getActivityname() {
-		return activityname;
-	}
-
-
-	public void setActivityname(String activityname) {
-		this.activityname = activityname;
-	}
-
-
-	public String getRoomname() {
-		return roomname;
-	}
-
-
-	public void setRoomname(String roomname) {
-		this.roomname = roomname;
-	}
-
-
-	public String getDevicename() {
-		return devicename;
-	}
-
-
-	public void setDevicename(String devicename) {
-		this.devicename = devicename;
-	}
-
-
-	public Rent(int rentid, String roomname, int roomAmount,String devicename, int deviceAmount,String activityname, String rentername) {
+    private String note;
+	
+    public Rent(int rentid, String rentname, int roomid, Timestamp timestart, Timestamp timefinish, String renterid,
+			String note) {
 		super();
 		this.rentid = rentid;
-		this.roomAmount = roomAmount;
-		this.deviceAmount = deviceAmount;
-		this.rentername = rentername;
-		this.activityname = activityname;
-		this.roomname = roomname;
-		this.devicename = devicename;
+		this.rentname = rentname;
+		this.roomid = roomid;
+		this.timestart = timestart;
+		this.timefinish = timefinish;
+		this.renterid = renterid;
+		this.note = note;
 	}
-
-
-	public Rent() {
+	
+    public Rent() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-
-	public Rent(int activityid, int deviceid, int roomid, int roomAmount, int deviceAmount, String renterid) {
-		super();
-		this.activityid = activityid;
-		this.deviceid = deviceid;
-		this.roomid = roomid;
-		this.roomAmount = roomAmount;
-		this.deviceAmount = deviceAmount;
-		this.renterid = renterid;
-	}
-
-
-
-	public Rent(int rentid, int activityid, int deviceid, int roomid, int roomAmount, int deviceAmount) {
-		super();
-		this.rentid = rentid;
-		this.activityid = activityid;
-		this.deviceid = deviceid;
-		this.roomid = roomid;
-		this.roomAmount = roomAmount;
-		this.deviceAmount = deviceAmount;
-	}
-
-
-	public Rent(int rentid, int activityid, int deviceid, int roomid, int roomAmount, int deviceAmount,
-			String renterid) {
-		super();
-		this.rentid = rentid;
-		this.activityid = activityid;
-		this.deviceid = deviceid;
-		this.roomid = roomid;
-		this.roomAmount = roomAmount;
-		this.deviceAmount = deviceAmount;
-		this.renterid = renterid;
-	}
-
-
 
 	public int getRentid() {
 		return rentid;
 	}
 
-
-
 	public void setRentid(int rentid) {
 		this.rentid = rentid;
 	}
 
-
-
-	public int getActivityid() {
-		return activityid;
+	public String getRentname() {
+		return rentname;
 	}
 
-
-
-	public void setActivityid(int activityid) {
-		this.activityid = activityid;
+	public void setRentname(String rentname) {
+		this.rentname = rentname;
 	}
-
-
-
-	public int getDeviceid() {
-		return deviceid;
-	}
-
-
-
-	public void setDeviceid(int deviceid) {
-		this.deviceid = deviceid;
-	}
-
-
 
 	public int getRoomid() {
 		return roomid;
 	}
 
-
-
 	public void setRoomid(int roomid) {
 		this.roomid = roomid;
 	}
 
-
-	
-	public int getRoomAmount() {
-		return roomAmount;
+	public Timestamp getTimestart() {
+		return timestart;
 	}
 
-
-
-	public void setRoomAmount(int roomAmount) {
-		this.roomAmount = roomAmount;
+	public void setTimestart(Timestamp timestart) {
+		this.timestart = timestart;
 	}
 
-
-
-	public int getDeviceAmount() {
-		return deviceAmount;
+	public Timestamp getTimefinish() {
+		return timefinish;
 	}
 
-
-	public void setDeviceAmount(int deviceAmount) {
-		this.deviceAmount = deviceAmount;
+	public void setTimefinish(Timestamp timefinish) {
+		this.timefinish = timefinish;
 	}
 
 	public String getRenterid() {
 		return renterid;
 	}
 
-
-
 	public void setRenterid(String renterid) {
 		this.renterid = renterid;
 	}
 
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
 
 	@Override
 	public String toString() {
-		return "Rent [rentid=" + rentid + ", roomAmount=" + roomAmount + ", deviceAmount=" + deviceAmount
-				+ ", rentername=" + rentername + ", activityname=" + activityname + ", roomname=" + roomname
-				+ ", devicename=" + devicename + "]";
+		return "Rent [rentid=" + rentid + ", rentname=" + rentname + ", roomid=" + roomid + ", timestart=" + timestart
+				+ ", timefinish=" + timefinish + ", renterid=" + renterid + ", note=" + note + "]";
 	}
-
-	public int insert() {
-    	int ketQua= RentDAO.getInstance().insert(this);
-    	return ketQua;
-    }
-	public int update() {
-    	int ketQua= RentDAO.getInstance().update(this);
-    	return ketQua;
-    }
-	public int delete() {
-    	int ketQua= RentDAO.getInstance().delete(this);
-    	return ketQua;
-    }
-	public ArrayList<Rent> searchAllDevice() {
-		ArrayList<Rent> a = RentDAO.getInstance().selectAll();
-		return a;
-	}
-	public Rent searchRentByName(String t) {
-		Rent a = RentDAO.getInstance().selectByName(t);
-		return a;
-	}
-	public Rent searchRentByID(int t) {
-		Rent a = RentDAO.getInstance().selectByID(t);
-		return a ;
-	}
-	public int cost() {
-    	int ketQua = RentDAO.getInstance().Rentcost(this);
-    	System.out.println(ketQua);
-    	return ketQua;
-    }
-
-
-
-	//ham extraPaymen
-	
-
+    
+    
+    
 }

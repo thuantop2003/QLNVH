@@ -5,29 +5,34 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
 <AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.RoomController">
    <children>
       <AnchorPane prefHeight="728.0" prefWidth="973.0">
          <children>
-            <Button layoutX="39.0" layoutY="162.0" mnemonicParsing="false" text="quản lí thiết bị" />
-            <Button layoutX="39.0" layoutY="230.0" mnemonicParsing="false" text="quản lí phòng ban" />
-            <Button layoutX="41.0" layoutY="293.0" mnemonicParsing="false" text="quản lí hoạt động" />
-            <Button layoutX="44.0" layoutY="351.0" mnemonicParsing="false" text="quản lí đơn thuê" />
-            <Button layoutX="44.0" layoutY="479.0" mnemonicParsing="false" onAction="#switchToAccountManagement" text="quản lí tài khoản" />
-            <Button layoutX="41.0" layoutY="413.0" mnemonicParsing="false" text="quản lí nhân khẩu" />
             <Label layoutX="451.0" layoutY="30.0" text="Quản lí nhà văn hóa" />
-            <Button layoutX="44.0" layoutY="544.0" mnemonicParsing="false" text="quản lí đăng nhập" />
-            <TableView fx:id="table" layoutX="322.0" layoutY="162.0" prefHeight="452.0" prefWidth="618.0">
+            <TableView fx:id="table" layoutX="250.0" layoutY="150.0" prefHeight="350.0" prefWidth="700.0">
               <columns>
-                <TableColumn fx:id="roomid" prefWidth="74.0" text="Roomid" />
-                <TableColumn fx:id="name" prefWidth="128.66668701171875" text="Name" />
-                  <TableColumn fx:id="capacity" prefWidth="85.3333740234375" text="Capacity" />
-                  <TableColumn fx:id="price" prefWidth="90.66668701171875" text="Price" />
-                  <TableColumn fx:id="status" prefWidth="94.6666259765625" text="Status" />
-                  <TableColumn fx:id="note" prefWidth="144.0" text="Note" />
+                <TableColumn fx:id="roomid" prefWidth="76.00001525878906" text="Roomid" />
+                <TableColumn fx:id="name" prefWidth="134.66668701171875" text="Name" />
+                  <TableColumn fx:id="capacity" prefWidth="102.66665649414062" text="Capacity" />
+                  <TableColumn fx:id="price" prefWidth="96.66668701171875" text="Price" />
+                  <TableColumn fx:id="status" prefWidth="112.66668701171875" text="Status" />
+                  <TableColumn fx:id="note" prefWidth="178.0" text="Note" />
               </columns>
             </TableView>
+            <VBox layoutX="30.0" layoutY="80.0" prefHeight="560.0" prefWidth="150.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#switchToDeviceManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí thiết bị" />
+                  <Button mnemonicParsing="false" onAction="#switchToRoomManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí phòng ban" />
+                  <Button mnemonicParsing="false" onAction="#switchToActivityManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí hoạt động" />
+                  <Button mnemonicParsing="false" onAction="#switchToRentManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí đơn thuê" />
+                  <Button mnemonicParsing="false" onAction="#switchToLocalPersonManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí nhân khẩu" />
+                  <Button mnemonicParsing="false" onAction="#switchToAccountManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí tài khoản" />
+                  <Button mnemonicParsing="false" onAction="#switchToWorkManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí đăng nhập" />
+               </children>
+            </VBox>
          </children>
       </AnchorPane>
    </children>

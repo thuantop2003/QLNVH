@@ -88,4 +88,32 @@ public class LocalPersonController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+	public void switchToRoomManagement(ActionEvent event) throws IOException{
+		root = FXMLLoader.load(getClass().getResource("/view/Room.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	public void switchToDeviceManagement(ActionEvent event) throws IOException{
+		root = FXMLLoader.load(getClass().getResource("/view/Device.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	public void switchToActivityManagement(ActionEvent event) throws IOException{
+		root = FXMLLoader.load(getClass().getResource("/view/Activity.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	public void switchToRentManagement(ActionEvent event) throws IOException{
+		root = FXMLLoader.load(getClass().getResource("/view/Rent.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 }

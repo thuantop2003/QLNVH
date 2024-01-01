@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import DAO.AccountDAO;
+import DAO.ActivityDAO;
 import DAO.WorkDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,25 +23,32 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Account;
+import model.Activity;
 import model.Work;
 
-public class WorkController implements Initializable {
+public class ActivityController implements Initializable {
 	@FXML
-	private TableView<Work> table;
+	private TableView<Activity> table;
 	
 	@FXML
-	private TableColumn<Work,String> userId;
+	private TableColumn<Activity,String> activityid;
 	
 	@FXML
-	private TableColumn<Work,String> accountName;
+	private TableColumn<Activity,String> activityname;
+
+	@FXML
+	private TableColumn<Activity,String> roomid;
 	
 	@FXML
-	private TableColumn<Work,LocalDateTime> timeloggin;
+	private TableColumn<Activity,String> note;
 	
 	@FXML
-	private TableColumn<Work,LocalDateTime> timeloggout;
+	private TableColumn<Activity,LocalDateTime> timestart;
 	
-	private ObservableList<Work> accountlist=FXCollections.observableArrayList();
+	@FXML
+	private TableColumn<Activity,LocalDateTime> timefinish;
+	
+	private ObservableList<Activity> accountlist=FXCollections.observableArrayList();
 	
 	private Stage stage;
 	private Scene scene;
@@ -49,12 +57,14 @@ public class WorkController implements Initializable {
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
-		ArrayList<Work> a = WorkDAO.getInstance().selectAll();
+		ArrayList<Activity> a = ActivityDAO.getInstance().selectAll();
         accountlist.addAll(a);
-		userId.setCellValueFactory(new PropertyValueFactory<Work, String>("userid"));
-		timeloggin.setCellValueFactory(new PropertyValueFactory<Work, LocalDateTime>("timeloggin"));
-		accountName.setCellValueFactory(new PropertyValueFactory<Work, String>("accountName"));
-		timeloggout.setCellValueFactory(new PropertyValueFactory<Work, LocalDateTime>("timeloggout"));
+		activityid.setCellValueFactory(new PropertyValueFactory<Activity, String>("activityid"));
+		activityname.setCellValueFactory(new PropertyValueFactory<Activity, String>("activityname"));
+		roomid.setCellValueFactory(new PropertyValueFactory<Activity, String>("roomid"));
+		timestart.setCellValueFactory(new PropertyValueFactory<Activity, LocalDateTime>("timestart"));		
+		timefinish.setCellValueFactory(new PropertyValueFactory<Activity, LocalDateTime>("timefinish"));
+		note.setCellValueFactory(new PropertyValueFactory<Activity, String>("note"));
 		table.setItems(accountlist);
 	}
 	public void switchToAccountManagement(ActionEvent event) throws IOException{
