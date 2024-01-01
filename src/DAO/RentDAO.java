@@ -136,7 +136,7 @@ public class RentDAO implements DAOInterface<Rent>  {
 		Rent ketQua = null;
 		try {
 			Connection connection = JDBCUtil.getConnection();
-			String sql= "SELECT * FROM activity WHERE rentid =? ";
+			String sql= "SELECT * FROM rent WHERE rentid =? ";
 			PreparedStatement pst = connection.prepareStatement(sql);
 			pst.setInt(1,t);
 			System.out.println(sql);
@@ -269,6 +269,27 @@ public class RentDAO implements DAOInterface<Rent>  {
 		}
 		
 		JDBCUtil.CloseConnection(connection);
+		return ketQua;
+	}
+	public int SearchID(Rent t ) {
+		int ketQua = 0;
+		try {
+			Connection connection = JDBCUtil.getConnection();
+			String sql= "SELECT rentid FROM rent WHERE rentname =? and timestart=? ";
+			PreparedStatement pst = connection.prepareStatement(sql);
+			pst.setString(1,t.getRentname());
+			pst.setString(2,t.getTimestart().toString());
+			System.out.println(sql);
+			ResultSet rs =pst.executeQuery();
+			while (rs.next()) {
+				int activityid = rs.getInt("activityid");
+				ketQua=activityid;
+			}
+			JDBCUtil.CloseConnection(connection);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return ketQua;
 	}
 

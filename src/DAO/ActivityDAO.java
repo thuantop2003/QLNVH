@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -125,13 +126,13 @@ public class ActivityDAO  {
 	}
 
 
-	public Activity selectByID(Activity t) {
+	public Activity selectByID(int t) {
 		Activity ketQua = null;
 		try {
 			Connection connection = JDBCUtil.getConnection();
 			String sql= "SELECT * FROM activity WHERE activityid =? ";
 			PreparedStatement pst = connection.prepareStatement(sql);
-			pst.setInt(1,t.getActivityid());
+			pst.setInt(1,t);
 			System.out.println(sql);
 			ResultSet rs =pst.executeQuery();
 			while (rs.next()) {
@@ -300,6 +301,27 @@ public class ActivityDAO  {
 		}
 		
 		JDBCUtil.CloseConnection(connection);
+		return ketQua;
+	}
+	public int SearchID(Activity t ) {
+		int ketQua = 0;
+		try {
+			Connection connection = JDBCUtil.getConnection();
+			String sql= "SELECT activityid FROM activity WHERE activityname =? and timestart=? ";
+			PreparedStatement pst = connection.prepareStatement(sql);
+			pst.setString(1,t.getActivityname());
+			pst.setString(2,t.getTimestart().toString());
+			System.out.println(sql);
+			ResultSet rs =pst.executeQuery();
+			while (rs.next()) {
+				int activityid = rs.getInt("activityid");
+				ketQua=activityid;
+			}
+			JDBCUtil.CloseConnection(connection);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return ketQua;
 	}
 }

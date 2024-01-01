@@ -12,12 +12,15 @@ import model.Activity;
 import model.DeviceActivity;
 
 public class DeviceActivityDAO implements DAOInterface<DeviceActivity> {
+	public static DeviceActivityDAO getInstance() {
+		return new DeviceActivityDAO();
+	}
 
 	@Override
 	public int insert(DeviceActivity t) {
 		Connection connection = JDBCUtil.getConnection();
 		int ketqua = 0;
-		String sql= "INSERT INTO deviceactivity (activityid, deviceid, note)"
+		String sql= "INSERT INTO deviceactivity (activityid, deviceid, amount)"
 				+ "VALUES(?,?,?)";
 		try {
 			PreparedStatement pst = connection.prepareStatement(sql);
@@ -83,24 +86,45 @@ public class DeviceActivityDAO implements DAOInterface<DeviceActivity> {
 		// TODO Auto-generated method stub
 		return ketqua;
 	}
+	
+	public int deleteByActivityId(int t) {
+		Connection connection = JDBCUtil.getConnection();
+		int ketqua=0;
+		String sql= "DELETE from deviceactivity "
+				+" WHERE activityid=?";
+		System.out.println(sql);
+		try {
+			PreparedStatement pst = connection.prepareStatement(sql);
+			pst.setInt(1,t);
+			ketqua =pst.executeUpdate();
+			System.out.println(ketqua);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		JDBCUtil.CloseConnection(connection);
+		// TODO Auto-generated method stub
+		return ketqua;
+	}
 
 	@Override
 	public ArrayList<DeviceActivity> selectAll() {
 		ArrayList<DeviceActivity> ketQua = new ArrayList<>();
 		Connection connection = JDBCUtil.getConnection();
 		
-		String sql= "SELECT * FROM deviceactivity ";
+		String sql= "SELECT * FROM deviceactivity, device where device.deviceid=deviceactivity.deviceid ";
 		System.out.println(sql);
 		try {
 			ResultSet rs = connection.createStatement().executeQuery(sql);
 			while (rs.next()) {
 				int activityid = rs.getInt("activityid");
+				String devicename=rs.getString("devicename");
 
 				int deviceid = rs.getInt("deviceid");
 				int amount = rs.getInt("amount");
-				DeviceActivity a = new DeviceActivity(activityid,deviceid,amount);
+				DeviceActivity a = new DeviceActivity(activityid,deviceid,amount,devicename);
 				ketQua.add(a);
-				
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -149,6 +173,33 @@ public class DeviceActivityDAO implements DAOInterface<DeviceActivity> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return ketQua;
+	}
+	public ArrayList<DeviceActivity> selectByActivityId(int t) {
+		ArrayList<DeviceActivity> ketQua = new ArrayList<>();
+		Connection connection = JDBCUtil.getConnection();
+		
+		String sql= "SELECT * FROM deviceactivity, device where device.deviceid=deviceactivity.deviceid and activityid = ?";
+		System.out.println(sql);
+		try {
+			PreparedStatement pst = connection.prepareStatement(sql);
+			pst.setInt(1,t);
+			System.out.println(sql);
+			ResultSet rs =pst.executeQuery();
+			while (rs.next()) {
+				int activityid = rs.getInt("activityid");
+				String devicename=rs.getString("devicename");
+				int deviceid = rs.getInt("device.deviceid");
+				int amount = rs.getInt("amount");
+				DeviceActivity a = new DeviceActivity(activityid,deviceid,amount,devicename);
+				ketQua.add(a);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		JDBCUtil.CloseConnection(connection);
 		return ketQua;
 	}
 }

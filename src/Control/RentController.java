@@ -123,5 +123,23 @@ public class RentController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
+	public void insertAct(ActionEvent event) throws IOException{
+		root = FXMLLoader.load(getClass().getResource("/view/InsertRent.fxml"));
+		stage = new Stage();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	public void detailRent(ActionEvent event) throws IOException{
+		Rent Selected = table.getSelectionModel().getSelectedItem();
+		FXMLLoader f = new FXMLLoader(getClass().getResource("/view/DetailRent.fxml"));
+		root = f.load();
+		DetailRentControl dac=f.getController();
+		dac.getInfor(Selected.getRentid());
+		stage = new Stage();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.show();
 	
+}
 }

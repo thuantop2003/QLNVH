@@ -26,6 +26,7 @@ public class Device implements InterfaceSearch<Device> {
         this.price = price;
         this.note = note;
         this.status= status; ;
+        this.deviceId=deviceId;
 	}
 	
 	

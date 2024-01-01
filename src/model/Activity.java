@@ -27,6 +27,15 @@ public class Activity  {
 		this.note = note;
 	}
 
+	public Activity(String activityname, int roomid, Timestamp timestart, Timestamp timefinish, String note) {
+		super();
+		this.activityname = activityname;
+		this.roomid = roomid;
+		this.timestart = timestart;
+		this.timefinish = timefinish;
+		this.note = note;
+	}
+
 	public Activity() {
 		super();
 		// TODO Auto-generated constructor stub

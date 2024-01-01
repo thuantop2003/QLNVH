@@ -29,7 +29,17 @@ public class Rent  {
 		this.note = note;
 	}
 	
-    public Rent() {
+    public Rent(String rentname, int roomid, Timestamp timestart, Timestamp timefinish, String renterid, String note) {
+		super();
+		this.rentname = rentname;
+		this.roomid = roomid;
+		this.timestart = timestart;
+		this.timefinish = timefinish;
+		this.renterid = renterid;
+		this.note = note;
+	}
+
+	public Rent() {
 		super();
 		// TODO Auto-generated constructor stub
 	}

@@ -4,6 +4,30 @@ public class DeviceRent {
 	private int rentid;
 	private int deviceid;
 	private int amount;
+	private String name;
+	public DeviceRent(int deviceid, int amount, String name) {
+		super();
+		this.deviceid = deviceid;
+		this.amount = amount;
+		this.name = name;
+	}
+
+	public DeviceRent(int rentid, int deviceid, int amount, String name) {
+		super();
+		this.rentid = rentid;
+		this.deviceid = deviceid;
+		this.amount = amount;
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public DeviceRent(int rentid, int deviceid, int amount) {
 		super();
 		this.rentid = rentid;

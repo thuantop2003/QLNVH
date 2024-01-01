@@ -33,6 +33,9 @@
                   <Button mnemonicParsing="false" onAction="#switchToWorkManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí đăng nhập" />
                </children>
             </VBox>
+            <Button fx:id="insert" layoutX="250.0" layoutY="533.0" mnemonicParsing="false" onAction="#insertAct" text="tạo hoạt động mới" />
+            <Button layoutX="250.0" layoutY="600.0" mnemonicParsing="false" onAction="#detailAct" text="xem chi tiết hoạt động" />
+            <Button layoutX="469.0" layoutY="533.0" mnemonicParsing="false" onAction="#deleteAct" text="xóa hoạt động" />
          </children>
       </AnchorPane>
    </children>

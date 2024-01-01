@@ -8,6 +8,7 @@ import java.util.ResourceBundle;
 
 import DAO.AccountDAO;
 import DAO.ActivityDAO;
+import DAO.DeviceActivityDAO;
 import DAO.WorkDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -115,6 +116,32 @@ public class ActivityController implements Initializable {
 		scene= new Scene(root);
 		stage.setScene(scene);
 		stage.show();
+	}
+	public void insertAct(ActionEvent event) throws IOException{
+		root = FXMLLoader.load(getClass().getResource("/view/InsertActivity.fxml"));
+		stage = new Stage();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	public void detailAct(ActionEvent event) throws IOException{
+		Activity Selected = table.getSelectionModel().getSelectedItem();
+		FXMLLoader f = new FXMLLoader(getClass().getResource("/view/DetailActivity.fxml"));
+		root = f.load();
+		DetailActControl dac=f.getController();
+		dac.getInfor(Selected.getActivityid());
+		stage = new Stage();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	public void deleteAct(ActionEvent event) throws IOException{
+		Activity Selected = table.getSelectionModel().getSelectedItem();
+		DeviceActivityDAO.getInstance().deleteByActivityId(Selected.getActivityid());
+		ActivityDAO.getInstance().delete(Selected);
+		accountlist.clear();
+		ArrayList<Activity> a = ActivityDAO.getInstance().selectAll();
+		accountlist.addAll(a);
 	}
 	
 }

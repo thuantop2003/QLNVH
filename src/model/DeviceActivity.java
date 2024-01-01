@@ -4,6 +4,30 @@ public class DeviceActivity {
 	private int activityid;
 	private int deviceid;
 	private int amount;
+	private String name;
+	public DeviceActivity(int activityid, int deviceid, int amount, String name) {
+		super();
+		this.activityid = activityid;
+		this.deviceid = deviceid;
+		this.amount = amount;
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public DeviceActivity(int deviceid, int amount, String name) {
+		super();
+		this.deviceid = deviceid;
+		this.amount = amount;
+		this.name = name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public DeviceActivity(int activityid, int deviceid, int amount) {
 		super();
 		this.activityid = activityid;
@@ -35,7 +59,8 @@ public class DeviceActivity {
 	}
 	@Override
 	public String toString() {
-		return "DeviceActivityDAO [activityid=" + activityid + ", deviceid=" + deviceid + ", amount=" + amount + "]";
+		return "DeviceActivity [activityid=" + activityid + ", deviceid=" + deviceid + ", amount=" + amount + ", name="
+				+ name + "]";
 	}
 		
 }

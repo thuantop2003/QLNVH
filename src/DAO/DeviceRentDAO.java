@@ -13,6 +13,9 @@ import model.DeviceActivity;
 import model.DeviceRent;
 
 public class DeviceRentDAO implements DAOInterface<DeviceRent> {
+	public static DeviceRentDAO getInstance() {
+		return new DeviceRentDAO();
+	}
 
 	@Override
 	public int insert(DeviceRent t) {
@@ -148,6 +151,33 @@ public class DeviceRentDAO implements DAOInterface<DeviceRent> {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return ketQua;
+	}
+	public ArrayList<DeviceRent> selectByRentId(int t) {
+		ArrayList<DeviceRent> ketQua = new ArrayList<>();
+		Connection connection = JDBCUtil.getConnection();
+		
+		String sql= "SELECT * FROM devicerent, device where device.deviceid=devicerent.deviceid and rentid = ?";
+		System.out.println(sql);
+		try {
+			PreparedStatement pst = connection.prepareStatement(sql);
+			pst.setInt(1,t);
+			System.out.println(sql);
+			ResultSet rs =pst.executeQuery();
+			while (rs.next()) {
+				int activityid = rs.getInt("rentid");
+				String devicename=rs.getString("devicename");
+				int deviceid = rs.getInt("device.deviceid");
+				int amount = rs.getInt("amount");
+				DeviceRent a = new DeviceRent(activityid,deviceid,amount,devicename);
+				ketQua.add(a);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		JDBCUtil.CloseConnection(connection);
 		return ketQua;
 	}
 }

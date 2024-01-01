@@ -11,6 +11,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Account;
@@ -19,7 +20,7 @@ public class LogginController {
 	@FXML
 	TextField accountname;
 	@FXML
-	TextField password;
+	PasswordField password;
 	
 	
 	private Stage stage;
