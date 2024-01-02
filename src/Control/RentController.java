@@ -8,7 +8,10 @@ import java.util.ResourceBundle;
 
 import DAO.AccountDAO;
 import DAO.ActivityDAO;
+import DAO.DeviceActivityDAO;
+import DAO.DeviceRentDAO;
 import DAO.RentDAO;
+import DAO.RenterDAO;
 import DAO.WorkDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,11 +24,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Account;
 import model.Activity;
 import model.Rent;
+import model.Renter;
 import model.Work;
 
 public class RentController implements Initializable {
@@ -52,6 +57,11 @@ public class RentController implements Initializable {
 	
 	@FXML
 	private TableColumn<Rent,LocalDateTime> timefinish;
+	@FXML
+	private TextField textname;
+	
+	@FXML
+	private TextField textrenter;
 	
 	
 	private ObservableList<Rent> accountlist=FXCollections.observableArrayList();
@@ -123,7 +133,7 @@ public class RentController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
-	public void insertAct(ActionEvent event) throws IOException{
+	public void insertRent(ActionEvent event) throws IOException{
 		root = FXMLLoader.load(getClass().getResource("/view/InsertRent.fxml"));
 		stage = new Stage();
 		scene= new Scene(root);
@@ -140,6 +150,51 @@ public class RentController implements Initializable {
 		scene= new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-	
+	}
+	public void deleteRent(ActionEvent event) throws IOException{
+		Rent Selected = table.getSelectionModel().getSelectedItem();
+		DeviceRentDAO.getInstance().deleteByRentId(Selected.getRentid());
+		RenterDAO.getInstance().deleteByID(Selected.getRenterid());
+		RentDAO.getInstance().delete(Selected);
+		accountlist.clear();
+		ArrayList<Rent> a = RentDAO.getInstance().selectAll();
+		accountlist.addAll(a);
+	}
+	public void searchByName(ActionEvent event) throws IOException {
+		
+		if (textname.getText() != "") {
+			ArrayList<Rent> arraylist = new ArrayList<>();
+			for (int i = 0; i< accountlist.size(); i++) {
+				if (accountlist.get(i).getRentname().compareTo(textname.getText()) == 0) {
+					arraylist.add(accountlist.get(i));
+				}
+			}
+			accountlist.clear();
+			accountlist.addAll(arraylist);
+		}
+	}
+	public void searchByRenterName(ActionEvent event) throws IOException {
+		
+		if (textrenter.getText() != "") {
+			ArrayList<Rent> arraylist = RentDAO.getInstance().selectByRenterName(textrenter.getText());
+			accountlist.clear();
+			accountlist.addAll(arraylist);
+		}
+	}
+	public void SearchNearOffDate(ActionEvent event) throws IOException{
+		Rent a = RentDAO.getInstance().SearchNearOffDate();
+		accountlist.clear();
+		accountlist.add(a);
+	}
+	public void SearchOffDate(ActionEvent event) throws IOException{
+		ArrayList<Rent> a = RentDAO.getInstance().SearchOffDate();
+		accountlist.clear();
+		accountlist.addAll(a);
+	}
+	public void clear(ActionEvent event) {
+		ArrayList<Rent> a = RentDAO.getInstance().selectAll();
+		accountlist.clear();
+        accountlist.addAll(a);
 }
+	
 }

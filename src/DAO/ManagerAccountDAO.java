@@ -22,7 +22,7 @@ public class ManagerAccountDAO implements DAOInterface<ManagerAccount> {
 	public int insert(ManagerAccount t) {
 		Connection connection = JDBCUtil.getConnection();
 		String sql= "INSERT INTO manageraccount (userid,accountname,password,secques,answer)"
-				+ "VALUES(?,?,?,?)";
+				+ "VALUES(?,?,?,?,?)";
 		try {
 			PreparedStatement pst = connection.prepareStatement(sql);
 			
@@ -125,7 +125,7 @@ public class ManagerAccountDAO implements DAOInterface<ManagerAccount> {
 	public ManagerAccount selectByID(String t) {
 		ManagerAccount tt = new ManagerAccount();
 		Connection connection = JDBCUtil.getConnection();
-		String sql= "SELECT * FROM account WHERE userid =? ";
+		String sql= "SELECT * FROM manageraccount WHERE userid =? ";
 		System.out.println(sql);
 		try {
 			PreparedStatement pst = connection.prepareStatement(sql);
@@ -150,12 +150,13 @@ public class ManagerAccountDAO implements DAOInterface<ManagerAccount> {
 	public ManagerAccount selectByName(String t) {
 		ManagerAccount tt = new ManagerAccount();
 		Connection connection = JDBCUtil.getConnection();
-		String sql= "SELECT * FROM account WHERE accountname =? ";
+		String sql= "SELECT * FROM manageraccount WHERE accountname = ? ";
 		System.out.println(sql);
 		try {
 			PreparedStatement pst = connection.prepareStatement(sql);
 			pst.setString(1,t);
-			ResultSet rs = connection.createStatement().executeQuery(sql);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
 			String userid = rs.getString("userid");
 			String accountname = rs.getString("accountname");
 			String password = rs.getString("password");
@@ -163,6 +164,7 @@ public class ManagerAccountDAO implements DAOInterface<ManagerAccount> {
 			String answer = rs.getString("answer");
 			ManagerAccount a = new ManagerAccount(userid,accountname,password,securityQuestion,answer);
 			tt=a;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -2,6 +2,7 @@ package Control;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -17,10 +18,12 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Activity;
 import model.Device;
@@ -58,6 +61,8 @@ public class DetailRentControl implements Initializable {
 	@FXML
 	private Label idlabel;
 	@FXML
+	private Label cost;
+	@FXML
 	private TextField textrentid;
 	@FXML
 	private TextField textrentname;
@@ -76,6 +81,17 @@ public class DetailRentControl implements Initializable {
 			deviceid.setCellValueFactory(new PropertyValueFactory<DeviceRent, String>("deviceid"));
 			amount.setCellValueFactory(new PropertyValueFactory<DeviceRent, String>("amount"));
 			table.setItems(accountlist);
+			table.setOnMouseClicked(event -> {
+	            if (event.getClickCount() == 1) {
+	                // Lấy dữ liệu của hàng được chọn
+	                DeviceRent selectedDevice = table.getSelectionModel().getSelectedItem();
+	                if (selectedDevice != null) {
+	                	textdname.setText(selectedDevice.getName());
+	                	textamount.setText(String.valueOf(selectedDevice.getAmount()));   
+	                }
+	               
+	            }
+	        });
 	}
 
 	public void getInfor(int rentid) {
@@ -97,6 +113,7 @@ public class DetailRentControl implements Initializable {
 			System.out.println(a.get(i).toString());
 		}
 		idlabel.setText(String.valueOf(rentid));
+		cost.setText(String.valueOf(RentDAO.getInstance().cost(rentid))+"VNĐ");
 		accountlist.addAll(a);
 	}
 	public void insertDeviceRent(ActionEvent event) throws IOException{
@@ -104,5 +121,46 @@ public class DetailRentControl implements Initializable {
 		DeviceRent d= new DeviceRent(dd.getDeviceId(),Integer.parseInt(textamount.getText()),textdname.getText());
 		accountlist.add(d);
 	}
-
+	public void deleteDeviceRent(ActionEvent event) throws IOException{
+		DeviceRent Selected = table.getSelectionModel().getSelectedItem();
+		if(Selected != null) {
+		DeviceRentDAO.getInstance().delete(Selected);
+		accountlist.remove(Selected);
+		}
+		else {
+			showAlert(AlertType.ERROR,"Lỗi"," Bạn chưa chọn thiết bị");
+		}
+	}
+	public void submit(ActionEvent event) throws IOException{
+		if (RoomDAO.getInstance().findRoomByName(textrname.getText())) {
+			Renter renter=new Renter(textrentid.getText(),textrentname.getText(),textsdt.getText(),textaddress.getText(),textrentnote.getText());
+			if(RenterDAO.getInstance().checkexistedrenter(renter)) {
+				Room a=RoomDAO.getInstance().selectByName(textrname.getText());
+				Rent newrent=new Rent(textaname.getText(),a.getRoomId(),Timestamp.valueOf(textstart.getText()),Timestamp.valueOf(textfinish.getText()),textrentid.getText(),textnote.getText());
+				RentDAO.getInstance().update(newrent);
+				int rentid=RentDAO.getInstance().SearchID(newrent);
+				for(int i=0;i<accountlist.size();i++) {
+					accountlist.get(i).setRentid(rentid);
+					DeviceRentDAO.getInstance().insert(accountlist.get(i));
+				}
+		RenterDAO.getInstance().update(renter);
+			}
+			else {
+				showAlert(AlertType.ERROR,"Lỗi", "Thông tin người thuê không đúng hoặc không tồn tại");
+			}
+		}
+		
+		
+		else {
+			showAlert(AlertType.ERROR,"Lỗi", "Phòng không tồn tại");
+		}
+}
+	private static void showAlert(AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null); // HeaderText set null để không hiển thị tiêu đề phụ
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
+	
 }

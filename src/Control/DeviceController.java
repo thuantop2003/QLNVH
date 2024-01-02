@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import DAO.DeviceDAO;
+import DAO.RentDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,6 +25,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Device;
+import model.Rent;
 
 
 public class DeviceController implements Initializable {
@@ -215,7 +217,10 @@ public class DeviceController implements Initializable {
 	}
 	public void updateDevice(ActionEvent event) {
 		Device x= new Device(newDevicename.getText(),Integer.parseInt(newAmount.getText()), Integer.parseInt(newPrice.getText()),newStatus.getText(),Integer.parseInt(newRoomid.getText()),newNote.getText());
+		Device a=DeviceDAO.getInstance().searchByNameStatus(x.getName(), x.getStatus());
+		x.setDeviceId(a.getDeviceId());
 		DeviceDAO.getInstance().update(x);
+		System.out.println(x.toString());
 		accountlist.clear();
 		ArrayList<Device> b = DeviceDAO.getInstance().selectAll();
 		accountlist.clear();
@@ -277,6 +282,7 @@ public void searchByRoomid(ActionEvent event) throws IOException {
 		accountlist.clear();
 		accountlist.addAll(arraylist);
 	}
+
 }
 }
 	

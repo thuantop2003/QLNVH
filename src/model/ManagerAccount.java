@@ -169,7 +169,7 @@ public class ManagerAccount {
 	
 	
 	//tạo tài khoản quản lí mới
-	public int makeNewManagerAccount(ManagerAccount t) {
+	public static int makeNewManagerAccount(ManagerAccount t) {
 		if(!t.checkManagerAccountName()) {
 		ManagerAccountDAO.getInstance().insert(t);
 		return 1;
@@ -178,6 +178,13 @@ public class ManagerAccount {
 	}
 	
 	
+	public ManagerAccount(String userId, String accountName, String password) {
+		super();
+		this.userId = userId;
+		this.accountName = accountName;
+		this.password = password;
+	}
+
 	// thống kê thời gian đăng nhập các tài khoản
 	public ArrayList<Work> searchWorkALL() {
 		 ArrayList<Work> a = WorkDAO.getInstance().selectAll();

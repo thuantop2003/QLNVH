@@ -3,6 +3,7 @@ package Control;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -19,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Account;
@@ -38,8 +40,9 @@ public class WorkController implements Initializable {
 	private TableColumn<Work,LocalDateTime> timeloggin;
 	
 	@FXML
-	private TableColumn<Work,LocalDateTime> timeloggout;
-	
+	private TextField timestart;
+	@FXML
+	private TextField timefinish;
 	private ObservableList<Work> accountlist=FXCollections.observableArrayList();
 	
 	private Stage stage;
@@ -54,7 +57,6 @@ public class WorkController implements Initializable {
 		userId.setCellValueFactory(new PropertyValueFactory<Work, String>("userid"));
 		timeloggin.setCellValueFactory(new PropertyValueFactory<Work, LocalDateTime>("timeloggin"));
 		accountName.setCellValueFactory(new PropertyValueFactory<Work, String>("accountName"));
-		timeloggout.setCellValueFactory(new PropertyValueFactory<Work, LocalDateTime>("timeloggout"));
 		table.setItems(accountlist);
 	}
 	public void switchToAccountManagement(ActionEvent event) throws IOException{
@@ -106,5 +108,15 @@ public class WorkController implements Initializable {
 		stage.setScene(scene);
 		stage.show();
 	}
-	
+	public void searchByTime(ActionEvent event) throws IOException{
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+
+        // Chuyển đổi chuỗi thành LocalDateTime
+        LocalDateTime times = LocalDateTime.parse(timestart.getText(), formatter);
+        LocalDateTime timef = LocalDateTime.parse(timefinish.getText(), formatter);
+        ArrayList<Work> a= WorkDAO.getInstance().selectByTime(times, timef);
+        accountlist.clear();
+        accountlist.addAll(a);
+
+	}
 }

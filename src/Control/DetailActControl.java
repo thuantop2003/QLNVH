@@ -17,10 +17,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Activity;
@@ -64,6 +66,17 @@ public class DetailActControl implements Initializable {
 			deviceid.setCellValueFactory(new PropertyValueFactory<DeviceActivity, String>("deviceid"));
 			amount.setCellValueFactory(new PropertyValueFactory<DeviceActivity, String>("amount"));
 			table.setItems(accountlist);
+			table.setOnMouseClicked(event -> {
+	            if (event.getClickCount() == 1) {
+	                // Lấy dữ liệu của hàng được chọn
+	                DeviceActivity selectedDevice = table.getSelectionModel().getSelectedItem();
+	                if (selectedDevice != null) {
+	                	textdname.setText(selectedDevice.getName());
+	                	textamount.setText(String.valueOf(selectedDevice.getAmount()));   
+	                }
+	               
+	            }
+	        });
 	}
 
 	public void getInfor(int activityid) {
@@ -82,19 +95,40 @@ public class DetailActControl implements Initializable {
 		accountlist.addAll(a);
 	}
 	public void update(ActionEvent event) throws IOException{
-		Room a=RoomDAO.getInstance().selectByName(textrname.getText());
-		Activity newact=new Activity(textaname.getText(),a.getRoomId(),Timestamp.valueOf(textstart.getText()),Timestamp.valueOf(textfinish.getText()),textnote.getText());
-		newact.setActivityid(Integer.parseInt(idlabel.getText()));
-		ActivityDAO.getInstance().update(newact);
-		for(int i=0;i<accountlist.size();i++) {
-			accountlist.get(i).setActivityid(Integer.parseInt(idlabel.getText()));
-			DeviceActivityDAO.getInstance().update(accountlist.get(i));
+		if (RoomDAO.getInstance().findRoomByName(textrname.getText())) {
+			Room a=RoomDAO.getInstance().selectByName(textrname.getText());
+			Activity newact=new Activity(textaname.getText(),a.getRoomId(),Timestamp.valueOf(textstart.getText()),Timestamp.valueOf(textfinish.getText()),textnote.getText());
+			newact.setActivityid(Integer.parseInt(idlabel.getText()));
+			ActivityDAO.getInstance().update(newact);
+			for(int i=0;i<accountlist.size();i++) {
+				accountlist.get(i).setActivityid(Integer.parseInt(idlabel.getText()));
+				DeviceActivityDAO.getInstance().update(accountlist.get(i));
+			}
 		}
-	}
+		else {
+			showAlert(AlertType.ERROR,"Lỗi", "Phòng không tồn tại");
+		}
+}
 	public void insertDeviceActivity(ActionEvent event) throws IOException{
 		Device dd=DeviceDAO.getInstance().selectByName(textdname.getText());
 		DeviceActivity d= new DeviceActivity(dd.getDeviceId(),Integer.parseInt(textamount.getText()),textdname.getText());
 		accountlist.add(d);
 	}
-	
+	public void deleteDeviceActivity(ActionEvent event) throws IOException{
+		DeviceActivity Selected = table.getSelectionModel().getSelectedItem();
+		if(Selected != null) {
+		DeviceActivityDAO.getInstance().delete(Selected);
+		accountlist.remove(Selected);
+		}
+		else {
+			showAlert(AlertType.ERROR,"Lỗi"," Bạn chưa chọn thiết bị");
+		}
+	}
+	private static void showAlert(AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null); // HeaderText set null để không hiển thị tiêu đề phụ
+        alert.setContentText(content);
+        alert.showAndWait();
+    }
 }

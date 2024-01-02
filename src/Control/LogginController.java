@@ -15,6 +15,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Account;
+import model.ManagerAccount;
 
 public class LogginController {
 	@FXML
@@ -30,8 +31,8 @@ public class LogginController {
 	public void login(ActionEvent event) throws IOException{
 		String username = accountname.getText();
 		String ps= password.getText();
-		Account a=new Account(username,ps);
-		if(a.checkAccount()) {
+		ManagerAccount a=new ManagerAccount(username,ps);
+		if(a.checkManagerAccount()) {
 			root = FXMLLoader.load(getClass().getResource("/view/Menu.fxml"));
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene= new Scene(root);
@@ -50,5 +51,12 @@ public class LogginController {
         alert.setContentText(content);
         alert.showAndWait();
     }
+	public void forgetPassword (ActionEvent event) throws IOException{
+		root = FXMLLoader.load(getClass().getResource("/view/TKQMK.fxml"));
+		stage = new Stage();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 
 }

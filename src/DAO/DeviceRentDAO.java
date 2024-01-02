@@ -21,7 +21,7 @@ public class DeviceRentDAO implements DAOInterface<DeviceRent> {
 	public int insert(DeviceRent t) {
 		Connection connection = JDBCUtil.getConnection();
 		int ketqua = 0;
-		String sql= "INSERT INTO devicerent (rentid, deviceid, note)"
+		String sql= "INSERT INTO devicerent (rentid, deviceid, amount)"
 				+ "VALUES(?,?,?)";
 		try {
 			PreparedStatement pst = connection.prepareStatement(sql);
@@ -179,5 +179,26 @@ public class DeviceRentDAO implements DAOInterface<DeviceRent> {
 		
 		JDBCUtil.CloseConnection(connection);
 		return ketQua;
+	}
+
+	public int deleteByRentId(int t) {
+		Connection connection = JDBCUtil.getConnection();
+		int ketqua=0;
+		String sql= "DELETE from devicerent "
+				+" WHERE rentid=?";
+		System.out.println(sql);
+		try {
+			PreparedStatement pst = connection.prepareStatement(sql);
+			pst.setInt(1,t);
+			ketqua =pst.executeUpdate();
+			System.out.println(ketqua);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		JDBCUtil.CloseConnection(connection);
+		// TODO Auto-generated method stub
+		return ketqua;
 	}
 }

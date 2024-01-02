@@ -17,7 +17,7 @@
 		public int insert(Renter t) {
 			Connection connection = JDBCUtil.getConnection();
 			
-			String sql= "INSERT INTO renter (renterid,name,sdt,address,note)"
+			String sql= "INSERT INTO renter (id,name,sdt,address,note) "
 					+ "VALUES(?,?,?,?,?)";
 			try {
 				PreparedStatement pst = connection.prepareStatement(sql);
@@ -45,7 +45,7 @@
 			
 			String sql= "UPDATE renter"
 					+" SET name= ?, sdt=?, address=?, note=?"
-					+" WHERE renterid=?";
+					+" WHERE id=?";
 				
 			try {
 				PreparedStatement pst = connection.prepareStatement(sql);
@@ -72,11 +72,32 @@
 			Connection connection = JDBCUtil.getConnection();
 			
 			String sql= "DELETE from renter "
-					+" WHERE renterid= ?";
+					+" WHERE id= ?";
 			System.out.println(sql);
 			try {
 				PreparedStatement pst = connection.prepareStatement(sql);
 				pst.setString(1,t.getId());
+				int ketqua =pst.executeUpdate();
+				System.out.println(ketqua);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			JDBCUtil.CloseConnection(connection);
+			// TODO Auto-generated method stub
+			return 0;
+		}
+		
+		public int deleteByID(String t) {
+			Connection connection = JDBCUtil.getConnection();
+			
+			String sql= "DELETE from renter "
+					+" WHERE id= ?";
+			System.out.println(sql);
+			try {
+				PreparedStatement pst = connection.prepareStatement(sql);
+				pst.setString(1,t);
 				int ketqua =pst.executeUpdate();
 				System.out.println(ketqua);
 			} catch (SQLException e) {
@@ -99,7 +120,7 @@
 			try {
 				ResultSet rs = connection.createStatement().executeQuery(sql);
 				while (rs.next()) {
-					String renterid = rs.getString("renterid");
+					String renterid = rs.getString("id");
 					String name = rs.getString("name");
 					String sdt = rs.getString("sdt");
 					String address = rs.getString("address");
@@ -132,7 +153,7 @@
 				pst.setString(1,t);
 				ResultSet rs =pst.executeQuery();
 				while (rs.next()) {
-					String renterid = rs.getString("renterid");
+					String renterid = rs.getString("id");
 					String name = rs.getString("name");
 					String sdt = rs.getString("sdt");
 					String address = rs.getString("address");
@@ -164,7 +185,7 @@
 				pst.setString(1,t);
 				ResultSet rs =pst.executeQuery();
 				while (rs.next()) {
-					String renterid = rs.getString("renterid");
+					String renterid = rs.getString("id");
 					String name = rs.getString("name");
 					String sdt = rs.getString("sdt");
 					String address = rs.getString("address");
@@ -182,6 +203,31 @@
 			return ketQua;
 		}
 
+		public boolean checkexistedrenter(Renter t) {
+			boolean ketQua = false;
+			
+			Connection connection = JDBCUtil.getConnection();
+			
+			String sql= "SELECT * FROM renter "
+						+ "WHERE id = ?";
+			System.out.println(sql);
+			try {
+				PreparedStatement pst = connection.prepareStatement(sql);
+				pst.setString(1,t.getId());
+				ResultSet rs =pst.executeQuery();
+				while (rs.next()) {
+					ketQua = true;
+					
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			JDBCUtil.CloseConnection(connection);
+			// TODO Auto-generated method stub
+			return ketQua;
+		}
 	}
 
 

@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
@@ -35,7 +36,12 @@
             </VBox>
             <Button fx:id="insert" layoutX="250.0" layoutY="533.0" mnemonicParsing="false" onAction="#insertAct" text="tạo hoạt động mới" />
             <Button layoutX="250.0" layoutY="600.0" mnemonicParsing="false" onAction="#detailAct" text="xem chi tiết hoạt động" />
-            <Button layoutX="469.0" layoutY="533.0" mnemonicParsing="false" onAction="#deleteAct" text="xóa hoạt động" />
+            <Button layoutX="418.0" layoutY="533.0" mnemonicParsing="false" onAction="#deleteAct" text="xóa hoạt động" />
+            <Button layoutX="557.0" layoutY="533.0" mnemonicParsing="false" onAction="#searchByName" text="Tìm kiếm theo tên" />
+            <TextField fx:id="textname" layoutX="557.0" layoutY="558.0" />
+            <Button layoutX="768.0" layoutY="533.0" mnemonicParsing="false" onAction="#SearchOffDate" text="Hoạt động đã quá hạn" />
+            <Button layoutX="768.0" layoutY="600.0" mnemonicParsing="false" onAction="#SearchNearOffDate" text="Hoạt động sắp tới hạn" />
+            <Button layoutX="425.0" layoutY="600.0" mnemonicParsing="false" onAction="#clear" text="Làm mới" />
          </children>
       </AnchorPane>
    </children>

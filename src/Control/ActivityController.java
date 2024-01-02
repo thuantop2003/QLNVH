@@ -9,6 +9,8 @@ import java.util.ResourceBundle;
 import DAO.AccountDAO;
 import DAO.ActivityDAO;
 import DAO.DeviceActivityDAO;
+import DAO.DeviceDAO;
+import DAO.RentDAO;
 import DAO.WorkDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -21,10 +23,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Account;
 import model.Activity;
+import model.Device;
+import model.Rent;
 import model.Work;
 
 public class ActivityController implements Initializable {
@@ -48,6 +53,8 @@ public class ActivityController implements Initializable {
 	
 	@FXML
 	private TableColumn<Activity,LocalDateTime> timefinish;
+	@FXML
+	private TextField textname;
 	
 	private ObservableList<Activity> accountlist=FXCollections.observableArrayList();
 	
@@ -143,5 +150,32 @@ public class ActivityController implements Initializable {
 		ArrayList<Activity> a = ActivityDAO.getInstance().selectAll();
 		accountlist.addAll(a);
 	}
-	
+	public void searchByName(ActionEvent event) throws IOException {
+		
+		if (textname.getText() != "") {
+			ArrayList<Activity> arraylist = new ArrayList<>();
+			for (int i = 0; i< accountlist.size(); i++) {
+				if (accountlist.get(i).getActivityname().compareTo(textname.getText()) == 0) {
+					arraylist.add(accountlist.get(i));
+				}
+			}
+			accountlist.clear();
+			accountlist.addAll(arraylist);
+		}
+	}
+	public void SearchNearOffDate(ActionEvent event) throws IOException{
+		Activity a = ActivityDAO.getInstance().SearchNearOffDate();
+		accountlist.clear();
+		accountlist.add(a);
+	}
+	public void SearchOffDate(ActionEvent event) throws IOException{
+		ArrayList<Activity> a = ActivityDAO.getInstance().searchOffDate();
+		accountlist.clear();
+		accountlist.addAll(a);
+	}
+	public void clear(ActionEvent event) {
+		ArrayList<Activity> a =	ActivityDAO.getInstance().selectAll();
+		accountlist.clear();
+        accountlist.addAll(a);
+}
 }

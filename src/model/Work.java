@@ -8,20 +8,11 @@ public class Work {
 	String userid;
 	String AccountName;
 	LocalDateTime timeloggin;
-	LocalDateTime timeloggout;
-	
-	public String getAccountName() {
-		return AccountName;
-	}
-	public void setAccountName(String accountName) {
-		AccountName = accountName;
-	}
-	public Work(String userid, String accountName, LocalDateTime timeloggin, LocalDateTime timeloggout) {
+	public Work(String userid, String accountName, LocalDateTime timeloggin) {
 		super();
 		this.userid = userid;
 		AccountName = accountName;
 		this.timeloggin = timeloggin;
-		this.timeloggout = timeloggout;
 	}
 	public String getUserid() {
 		return userid;
@@ -29,26 +20,23 @@ public class Work {
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
+	public String getAccountName() {
+		return AccountName;
+	}
+	public void setAccountName(String accountName) {
+		AccountName = accountName;
+	}
 	public LocalDateTime getTimeloggin() {
 		return timeloggin;
 	}
 	public void setTimeloggin(LocalDateTime timeloggin) {
 		this.timeloggin = timeloggin;
 	}
-	public LocalDateTime getTimeloggout() {
-		return timeloggout;
-	}
-	public void setTimeloggout(LocalDateTime timeloggout) {
-		this.timeloggout = timeloggout;
-	}
 	@Override
 	public String toString() {
-		return "Work [userid=" + userid + ", AccountName=" + AccountName + ", timeloggin=" + timeloggin
-				+ ", timeloggout=" + timeloggout + "]";
+		return "Work [userid=" + userid + ", AccountName=" + AccountName + ", timeloggin=" + timeloggin + "]";
 	}
-	public int insert() {
-		int ketqua = WorkDAO.getInstance().insert(this);
-		return ketqua;
-	}
+	
+	
 
 }

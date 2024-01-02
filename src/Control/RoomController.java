@@ -203,6 +203,8 @@ public class RoomController implements Initializable {
 	}
 	public void updateRoom(ActionEvent event) {
 		Room x= new Room(newRoomname.getText(),Integer.parseInt(newCapacity.getText()), Integer.parseInt(newPrice.getText()),newStatus.getText(),newNote.getText());
+		Room a = RoomDAO.getInstance().selectByName(x.getName());
+		x.setRoomId(a.getRoomId());
 		RoomDAO.getInstance().update(x);
 		accountlist.clear();
 		ArrayList<Room> b = RoomDAO.getInstance().selectAll();

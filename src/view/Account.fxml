@@ -12,7 +12,7 @@
       <AnchorPane layoutX="28.0" layoutY="32.0" prefHeight="750.0" prefWidth="1000.0">
          <children>
             <Label layoutX="451.0" layoutY="30.0" text="Quản lí nhà văn hóa" />
-            <TableView fx:id="table" layoutX="250.0" layoutY="150.0" prefHeight="350.0" prefWidth="700.0">
+            <TableView fx:id="table" layoutX="250.0" layoutY="72.0" prefHeight="350.0" prefWidth="700.0">
               <columns>
                 <TableColumn fx:id="userId" prefWidth="164.66664123535156" text="userid" />
                 <TableColumn fx:id="accountName" prefWidth="154.66659545898438" text="accountname" />
@@ -31,10 +31,19 @@
                   <Button mnemonicParsing="false" onAction="#switchToWorkManagement" prefHeight="80.0" prefWidth="150.0" text="quản lí đăng nhập" />
                </children>
             </VBox>
-            <Button fx:id="makenewaccount" layoutX="250.0" layoutY="529.0" mnemonicParsing="false" onAction="#makeNewAccount" text="tạo tài khoản mới" />
-            <Button layoutX="250.0" layoutY="614.0" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="25.0" prefWidth="109.0" text="xóa tài khoản" />
-            <Button layoutX="440.0" layoutY="529.0" mnemonicParsing="false" onAction="#ChangePassword" text="đổ mật khẩu" />
-            <Button layoutX="440.0" layoutY="614.0" mnemonicParsing="false" text="thay đổi câu hỏi bảo mật" />
+            <Button fx:id="makenewaccount" layoutX="250.0" layoutY="614.0" mnemonicParsing="false" onAction="#makeNewAccount" text="tạo tài khoản mới" />
+            <Button layoutX="414.0" layoutY="614.0" mnemonicParsing="false" onAction="#deleteAccount" prefHeight="25.0" prefWidth="109.0" text="xóa tài khoản" />
+            <Button layoutX="589.0" layoutY="614.0" mnemonicParsing="false" onAction="#ChangePassword" text="đổi mật khẩu" />
+            <Button layoutX="250.0" layoutY="660.0" mnemonicParsing="false" onAction="#makeNewManagerAcount" text="tạo tài khoản quản lí" />
+            <TableView fx:id="table1" layoutX="250.0" layoutY="433.0" prefHeight="115.0" prefWidth="700.0">
+              <columns>
+                <TableColumn fx:id="manageruserid" prefWidth="219.33331298828125" text="manageruserid" />
+                <TableColumn fx:id="manageraccountname" prefWidth="218.66665649414062" text="manageraccountname" />
+                  <TableColumn fx:id="managerpassword" prefWidth="260.666748046875" text="password" />
+              </columns>
+            </TableView>
+            <Button layoutX="414.0" layoutY="660.0" mnemonicParsing="false" onAction="#deleteManagerAccount" text="xóa tài khoản quản lí" />
+            <Button layoutX="589.0" layoutY="660.0" mnemonicParsing="false" onAction="#ChangeManagerPassword" text="đổi mật khẩu quản lí" />
          </children>
       </AnchorPane>
    </children>

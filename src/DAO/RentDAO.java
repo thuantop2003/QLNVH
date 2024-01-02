@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import database.JDBCUtil;
+import javafx.event.ActionEvent;
 import model.Activity;
 import model.Rent;
 
@@ -282,7 +283,7 @@ public class RentDAO implements DAOInterface<Rent>  {
 			System.out.println(sql);
 			ResultSet rs =pst.executeQuery();
 			while (rs.next()) {
-				int activityid = rs.getInt("activityid");
+				int activityid = rs.getInt("rentid");
 				ketQua=activityid;
 			}
 			JDBCUtil.CloseConnection(connection);
@@ -292,6 +293,133 @@ public class RentDAO implements DAOInterface<Rent>  {
 		}
 		return ketQua;
 	}
-
-
+	 public int cost(int t) {
+		 int cost =0;
+		 int roomcost = 0;
+		 int totaldevicecost = 0;
+		 int renthour =0;
+		 try {
+				Connection connection = JDBCUtil.getConnection();
+				String sql1= "SELECT timestampdiff(hour, timestart, timefinish) as renthour FROM rent WHERE rentid= ? ";
+				String sql2= "SELECT price as roomcost FROM rent,room WHERE rent.rentid= ? and rent.roomid = room.roomid ";
+				String sql3= "SELECT price*devicerent.amount as devicecost FROM rent,device,devicerent WHERE rent.rentid= ? and rent.rentid= devicerent.rentid and devicerent.deviceid =device.deviceid ";
+				PreparedStatement pst1 = connection.prepareStatement(sql1);
+				pst1.setInt(1,t);
+				System.out.println(sql1);
+				PreparedStatement pst2 = connection.prepareStatement(sql2);
+				pst2.setInt(1,t);
+				System.out.println(sql2);
+				PreparedStatement pst3 = connection.prepareStatement(sql3);
+				pst3.setInt(1,t);
+				System.out.println(sql3);
+				ResultSet rs1 =pst1.executeQuery();
+				while (rs1.next()) {
+					 renthour = rs1.getInt("renthour");
+				}
+				ResultSet rs2 =pst2.executeQuery();
+				while (rs2.next()) {
+					roomcost = rs2.getInt("roomcost");
+				}
+				ResultSet rs3 =pst3.executeQuery();
+				while (rs3.next()) {
+					int devicecost = rs3.getInt("devicecost");
+					totaldevicecost += devicecost;
+				}
+				cost = (totaldevicecost + roomcost)*renthour;
+				
+				
+				JDBCUtil.CloseConnection(connection);
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		 
+		 return cost;
+	 }
+	 public ArrayList<Rent> selectByRenterName(String t) {
+			ArrayList<Rent> ketQua = new ArrayList<>();
+			Connection connection = JDBCUtil.getConnection();
+			
+			String sql= "SELECT * FROM rent,renter where rent.renterid=renter.id and name = ? ";
+			System.out.println(sql);
+			try {
+				PreparedStatement pst = connection.prepareStatement(sql);
+				pst.setString(1,t);
+				System.out.println(sql);
+				ResultSet rs =pst.executeQuery();
+				while (rs.next()) {
+					int rentid = rs.getInt("rentid");
+					String rentname = rs.getString("rentname");
+					int roomid = rs.getInt("roomid");
+					Timestamp timestart = rs.getTimestamp("timestart");
+					Timestamp timefinish = rs.getTimestamp("timefinish");
+					String renterid = rs.getString("renterid");
+					String note = rs.getString("note");
+					Rent a = new Rent(rentid,rentname,roomid,timestart,timefinish,renterid,note);
+					ketQua.add(a);
+					
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			JDBCUtil.CloseConnection(connection);
+			return ketQua;
+			// TODO Auto-generated method stub
+		}
+	 public Rent SearchNearOffDate() {
+			Rent ketQua = new Rent();
+			Connection connection = JDBCUtil.getConnection();
+			
+			String sql= "SELECT * FROM rent WHERE timefinish > NOW() ORDER BY timefinish DESC ";
+			System.out.println(sql);
+			try {
+				ResultSet rs = connection.createStatement().executeQuery(sql);
+				while (rs.next()) {
+					int rentid = rs.getInt("rentid");
+					String activityname = rs.getString("rentname");
+					int roomid = rs.getInt("roomid");
+					Timestamp timestart = rs.getTimestamp("timestart");
+					Timestamp timefinish = rs.getTimestamp("timefinish");
+					String renterid = rs.getString("renterid");
+					String note = rs.getString("note");
+					Rent a = new Rent(rentid,activityname,roomid,timestart,timefinish,renterid,note);
+					ketQua = a;
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			JDBCUtil.CloseConnection(connection);
+			return ketQua;
+		}
+	 public ArrayList<Rent> SearchOffDate() {
+		 	ArrayList<Rent> ketQua = new ArrayList<>();
+			Connection connection = JDBCUtil.getConnection();
+			
+			String sql= "SELECT * FROM rent WHERE timefinish < NOW() ";
+			System.out.println(sql);
+			try {
+				ResultSet rs = connection.createStatement().executeQuery(sql);
+				while (rs.next()) {
+					int rentid = rs.getInt("rentid");
+					String activityname = rs.getString("rentname");
+					int roomid = rs.getInt("roomid");
+					Timestamp timestart = rs.getTimestamp("timestart");
+					Timestamp timefinish = rs.getTimestamp("timefinish");
+					String renterid = rs.getString("renterid");
+					String note = rs.getString("note");
+					Rent a = new Rent(rentid,activityname,roomid,timestart,timefinish,renterid,note);
+					ketQua.add(a);
+				}
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			JDBCUtil.CloseConnection(connection);
+			return ketQua;
+		}
 }

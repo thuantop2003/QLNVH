@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import DAO.AccountDAO;
 import DAO.LocalPersonDAO;
+import DAO.ManagerAccountDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -20,6 +21,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
@@ -44,12 +46,25 @@ public class AccountController implements Initializable {
 	@FXML
 	private TableColumn<Account,String> note;
 	
+	@FXML
+	private TableView<ManagerAccount> table1;
+	
+	@FXML
+	private TableColumn<ManagerAccount,String> manageruserid;
+	
+	@FXML
+	private TableColumn<ManagerAccount,String> manageraccountname;
+	
+	@FXML
+	private TableColumn<ManagerAccount,String> managerpassword;
+	
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
 	
 	
 	private ObservableList<Account> accountlist=FXCollections.observableArrayList();
+	private ObservableList<ManagerAccount> manageraccountlist=FXCollections.observableArrayList();
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -60,6 +75,12 @@ public class AccountController implements Initializable {
 		password.setCellValueFactory(new PropertyValueFactory<Account, String>("password"));
 		accountName.setCellValueFactory(new PropertyValueFactory<Account, String>("accountName"));
 		note.setCellValueFactory(new PropertyValueFactory<Account, String>("note"));
+		ArrayList<ManagerAccount> ma = ManagerAccountDAO.getInstance().selectAll();
+        manageraccountlist.addAll(ma);
+        manageruserid.setCellValueFactory(new PropertyValueFactory<ManagerAccount, String>("userId"));
+        managerpassword.setCellValueFactory(new PropertyValueFactory<ManagerAccount, String>("password"));
+		manageraccountname.setCellValueFactory(new PropertyValueFactory<ManagerAccount, String>("accountName"));
+		table1.setItems(manageraccountlist);
 		table.setItems(accountlist);
 	}
 	
@@ -134,8 +155,26 @@ public class AccountController implements Initializable {
 		scene= new Scene(root);
 		stage.setScene(scene);
 		stage.show();
-		
 	}
-	
-
+	public void makeNewManagerAcount(ActionEvent event)throws IOException{
+		root = FXMLLoader.load(getClass().getResource("/view/MakeNewManagerAccount2.fxml"));
+		stage=new Stage();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	public void deleteManagerAccount(ActionEvent event){
+		ManagerAccount Selected = table1.getSelectionModel().getSelectedItem();
+		if(Selected != null) {
+		ManagerAccountDAO.getInstance().delete(Selected);
+		manageraccountlist.remove(Selected);
+		}
+	}
+	public void ChangeManagerPassword(ActionEvent event) throws IOException{
+		root = FXMLLoader.load(getClass().getResource("/view/ChangeManagerPassword.fxml"));
+		stage=new Stage();
+		scene= new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
 }

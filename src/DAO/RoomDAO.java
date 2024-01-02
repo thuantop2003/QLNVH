@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import database.JDBCUtil;
@@ -20,7 +21,7 @@ public class RoomDAO implements DAOInterface<Room> {
 	public int insert(Room t) {
 		Connection connection = JDBCUtil.getConnection();
 		
-		String sql= "INSERT INTO room (name,capacity,price,status,note)"
+		String sql= "INSERT INTO room (name,capacity,price,status,note) "
 				+ "VALUES(?,?,?,?,?)";
 		try {
 			PreparedStatement pst = connection.prepareStatement(sql);
@@ -45,7 +46,7 @@ public class RoomDAO implements DAOInterface<Room> {
 	public int update(Room t) {
 		Connection connection = JDBCUtil.getConnection();
 		String sql= "UPDATE room"
-				+ "SET name= ?, capacity= ?, price= ?, status= ?, note= ?"
+				+ " SET name= ?, capacity= ?, price= ?, status= ?, note= ? "
 				+ "WHERE roomid=?";
 		try {
 			PreparedStatement pst = connection.prepareStatement(sql);
@@ -217,5 +218,78 @@ public class RoomDAO implements DAOInterface<Room> {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	public boolean findRoomByName(String t) {
+		boolean ketQua = false;
+		Connection connection = JDBCUtil.getConnection();
+		String sql= "SELECT * FROM room where name = ? ";
+		System.out.println(sql);
+		try {
+			PreparedStatement pst = connection.prepareStatement(sql);
+			pst.setString(1,t);
+			ResultSet rs =pst.executeQuery();
+			if (rs.next()) {
+				ketQua = true;
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		JDBCUtil.CloseConnection(connection);
+		return ketQua;
+	}
+	public boolean checkRoomFree(int roomID, Timestamp timebegin,Timestamp timeend) {
+		try {
+			Connection connection = JDBCUtil.getConnection();
+			String sql1= "SELECT * FROM activity WHERE ? between timestart and timefinish and ? between timestart and timefinish and roomid = ? ";
+			String sql2 = "SELECT * FROM activity WHERE (timestart between ? and ? or timefinish between ? and ? ) and roomid = ?";
+			String sql3= "SELECT * FROM rent WHERE ? between timestart and timefinish and ? between timestart and timefinish and roomid = ? ";
+			String sql4 = "SELECT * FROM activity WHERE (timestart between ? and ? or timefinish between ? and ? ) and roomid = ?";
+			PreparedStatement pst1 = connection.prepareStatement(sql1);
+			pst1.setTimestamp(1,timebegin);
+			pst1.setTimestamp(2,timeend);
+			pst1.setInt(3,roomID);
+			System.out.println(sql1);
+			PreparedStatement pst2 = connection.prepareStatement(sql2);
+			pst2.setTimestamp(1,timebegin);
+			pst2.setTimestamp(2,timeend);
+			pst2.setTimestamp(3,timebegin);
+			pst2.setTimestamp(4,timeend);
+			pst2.setInt(5,roomID);
+			System.out.println(sql1);
+			ResultSet rs1 =pst1.executeQuery();
+			if (rs1.next()) {
+				return false;				
+			}
+			ResultSet rs2 =pst2.executeQuery();
+			if (rs2.next()) {
+				return false;				
+			}
+			PreparedStatement pst3 = connection.prepareStatement(sql3);
+			pst3.setTimestamp(1,timebegin);
+			pst3.setTimestamp(2,timeend);
+			pst3.setInt(3,roomID);
+			System.out.println(sql3);
+			PreparedStatement pst4 = connection.prepareStatement(sql4);
+			pst4.setTimestamp(1,timebegin);
+			pst4.setTimestamp(2,timeend);
+			pst4.setTimestamp(3,timebegin);
+			pst4.setTimestamp(4,timeend);
+			pst4.setInt(5,roomID);
+			System.out.println(sql1);
+			ResultSet rs3 =pst3.executeQuery();
+			if (rs3.next()) {
+				return false;				
+			}
+			ResultSet rs4 =pst4.executeQuery();
+			if (rs4.next()) {
+				return false;				
+			}
+			JDBCUtil.CloseConnection(connection);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return true;
+	}
 }

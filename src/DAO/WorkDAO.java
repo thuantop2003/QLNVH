@@ -17,16 +17,15 @@ public class WorkDAO {
 	public ArrayList<Work> selectAll() {
 		ArrayList<Work> ketQua = new ArrayList<>();
 		Connection connection = JDBCUtil.getConnection();
-		String sql1= "SELECT account.userid,accountname,timeloggin,timeloggout FROM account, work where account.userid=work.userid ";
-		String sql2= "SELECT account.userid,accountname,timeloggin,timeloggout FROM account, work where account.userid=work.userid ";
+		String sql1= "SELECT account.userid,accountname,timeloggin FROM account, work where account.userid=work.userid ";
+		String sql2= "SELECT account.userid,accountname,timeloggin FROM account, work where account.userid=work.userid ";
 		try {
 			ResultSet rs = connection.createStatement().executeQuery(sql1);
 			while (rs.next()) {
 				String userid = rs.getString("account.userid");
 				String accountname = rs.getString("accountname");
 				LocalDateTime timeloggin = (LocalDateTime) rs.getObject("timeloggin");
-				LocalDateTime timeloggout = (LocalDateTime) rs.getObject("timeloggout");
-				Work a= new Work(userid,accountname,timeloggin,timeloggout);
+				Work a= new Work(userid,accountname,timeloggin);
 				ketQua.add(a);
 			}
 			ResultSet rs2 = connection.createStatement().executeQuery(sql2);
@@ -34,8 +33,7 @@ public class WorkDAO {
 				String userid = rs2.getString("account.userid");
 				String accountname = rs2.getString("accountname");
 				LocalDateTime timeloggin = (LocalDateTime) rs2.getObject("timeloggin");
-				LocalDateTime timeloggout = (LocalDateTime) rs2.getObject("timeloggout");
-				Work a= new Work(userid,accountname,timeloggin,timeloggout);
+				Work a= new Work(userid,accountname,timeloggin);
 				ketQua.add(a);
 			}
 		} catch (SQLException e) {
@@ -80,13 +78,12 @@ public class WorkDAO {
 	public int insert(Work t) {
 		Connection connection = JDBCUtil.getConnection();
 		int ketqua=0;
-		String sql= "INSERT INTO work(userid,timeloggin,timeloggout) "
-				+" VALUES(?,?,?)";
+		String sql= "INSERT INTO work(userid,timeloggin) "
+				+" VALUES(?,?)";
 		try {
 			PreparedStatement pst = connection.prepareStatement(sql);
 			pst.setString(1, t.getUserid());
 			pst.setObject(2, t.getTimeloggin());
-			pst.setObject(3, t.getTimeloggout());
 			ketqua =pst.executeUpdate();
 			System.out.println(ketqua);
 		} catch (SQLException e) {

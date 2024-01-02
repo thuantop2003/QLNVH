@@ -254,33 +254,39 @@ public class ActivityDAO  {
 		JDBCUtil.CloseConnection(connection);
 		return ketQua;
 	}
-	public String searchOffDate(Activity t) {
-		String ketQua = null;
+	public ArrayList<Activity> searchOffDate() {
+		ArrayList<Activity> ketQua = new ArrayList<>();
+		Connection connection = JDBCUtil.getConnection();
+		
+		String sql= "SELECT * FROM activity WHERE timefinish < NOW() ";
+		System.out.println(sql);
 		try {
-			Connection connection = JDBCUtil.getConnection();
-			String sql= "SELECT timefinish FROM activity WHERE activityname =? ";
-			PreparedStatement pst = connection.prepareStatement(sql);
-			pst.setString(1,t.getActivityname());
-			System.out.println(sql);
-			ResultSet rs =pst.executeQuery();
+			ResultSet rs = connection.createStatement().executeQuery(sql);
 			while (rs.next()) {
-				String timefinish = rs.getString("timefinish");
-				String a = timefinish;
-				ketQua = a;
-			System.out.println(a);
+				int activityid = rs.getInt("activityid");
+				String activityname = rs.getString("activityname");
+				int roomid = rs.getInt("roomid");
+				Timestamp timestart = rs.getTimestamp("timestart");
+				Timestamp timefinish = rs.getTimestamp("timefinish");
+				String note = rs.getString("note");
+				Activity a = new Activity(activityid,activityname,roomid,timestart,timefinish,note);
+				ketQua.add(a);
+				
 			}
-			JDBCUtil.CloseConnection(connection);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		JDBCUtil.CloseConnection(connection);
 		return ketQua;
+		// TODO Auto-generated method stub
 	}
 	public Activity SearchNearOffDate() {
 		Activity ketQua = new Activity();
 		Connection connection = JDBCUtil.getConnection();
 		
-		String sql= "SELECT TOP 1 FROM activity WHERE timefinish > NOW() ORDER BY timefinsh ";
+		String sql= "SELECT * FROM activity WHERE timefinish > NOW() ORDER BY timefinish DESC ";
 		System.out.println(sql);
 		try {
 			ResultSet rs = connection.createStatement().executeQuery(sql);
@@ -324,4 +330,5 @@ public class ActivityDAO  {
 		}
 		return ketQua;
 	}
+	
 }

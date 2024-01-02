@@ -24,6 +24,8 @@ public class CreateNewAccount {
 	public void createNewAccount(ActionEvent event) throws IOException{
 		if(newpassword1.getText().compareTo(newpassword2.getText())==0) {
 		Account a = new Account(newuserid.getText(),newaccountname.getText(),newpassword1.getText());
+		ManagerAccount b = new ManagerAccount(newuserid.getText(),newaccountname.getText(),newpassword1.getText());
+		if(b.checkManagerAccountName()) {
 		if(ManagerAccount.makeNewAccount(a)>0) {
 			showAlert(AlertType.INFORMATION,"thông báo", "Tạo tài khoảng thành công");
 		}
@@ -31,6 +33,10 @@ public class CreateNewAccount {
 			showAlert(AlertType.ERROR,"Lỗi", "Tạo tài khoản không thành công. Tài khoản đã tồn tại");
 		}
 		}
+		else {
+			showAlert(AlertType.ERROR,"Lỗi", "Tạo tài khoản không thành công. Tài khoản đã tồn tại");
+		}
+	}
 		else {
 			showAlert(AlertType.ERROR,"Lỗi", "Tạo tài khoản không thành công. Xác nhận mật khẩu ko chính xác");
 		}
