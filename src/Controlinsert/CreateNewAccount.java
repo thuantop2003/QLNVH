@@ -25,7 +25,7 @@ public class CreateNewAccount {
 		if(newpassword1.getText().compareTo(newpassword2.getText())==0) {
 		Account a = new Account(newuserid.getText(),newaccountname.getText(),newpassword1.getText());
 		ManagerAccount b = new ManagerAccount(newuserid.getText(),newaccountname.getText(),newpassword1.getText());
-		if(b.checkManagerAccountName()) {
+		if(!b.checkManagerAccountName()) {
 		if(ManagerAccount.makeNewAccount(a)>0) {
 			showAlert(AlertType.INFORMATION,"thông báo", "Tạo tài khoảng thành công");
 		}

@@ -18,7 +18,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JDBC"/>
 	<classpathentry kind="lib" path="C:/Users/Lenovo/Downloads/charm-glisten-4.4.1-javadoc.jar"/>
-	<classpathentry kind="lib" path="C:/Users/Lenovo/Documents/Javadocument/conectSQL/mysql-connector-java-8.0.30.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Lenovo/Documents/Javadocument/conectSQL/mysql-connector-java-8.0.30.jar" sourcepath="C:/Users/Lenovo/.m2/repository/mysql/mysql-connector-java/8.0.30/mysql-connector-java-8.0.30-sources.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Lenovo/Documents/Javadocument/conectSQL/protobuf-java-3.19.4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

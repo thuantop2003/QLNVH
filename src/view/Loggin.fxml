@@ -10,13 +10,14 @@
    <children>
       <AnchorPane layoutX="1.0" prefHeight="471.0" prefWidth="539.0">
          <children>
-            <Button layoutX="153.0" layoutY="271.0" mnemonicParsing="false" onAction="#login" text="Đăng nhập" />
-            <Button layoutX="294.0" layoutY="271.0" mnemonicParsing="false" onAction="#forgetPassword" text="Quên mật khẩu" />
+            <Button layoutX="187.0" layoutY="336.0" mnemonicParsing="false" onAction="#login" text="Đăng nhập với tài khoản quản lí" />
+            <Button layoutX="305.0" layoutY="272.0" mnemonicParsing="false" onAction="#forgetPassword" text="Quên mật khẩu" />
             <Label layoutX="61.0" layoutY="156.0" text="Tên đăng nhập" />
             <Label layoutX="61.0" layoutY="214.0" text="Mật khẩu" />
             <Label layoutX="182.0" layoutY="55.0" text="Ứng dụng quản lí nhà văn hóa" />
             <TextField fx:id="accountname" layoutX="174.0" layoutY="152.0" prefHeight="25.0" prefWidth="211.0" />
             <PasswordField fx:id="password" layoutX="174.0" layoutY="210.0" prefHeight="25.0" prefWidth="211.0" />
+            <Button layoutX="156.0" layoutY="272.0" mnemonicParsing="false" onAction="#loginAccount" text="Đăng nhập" />
          </children>
       </AnchorPane>
    </children>

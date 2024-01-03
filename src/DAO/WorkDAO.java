@@ -18,7 +18,7 @@ public class WorkDAO {
 		ArrayList<Work> ketQua = new ArrayList<>();
 		Connection connection = JDBCUtil.getConnection();
 		String sql1= "SELECT account.userid,accountname,timeloggin FROM account, work where account.userid=work.userid ";
-		String sql2= "SELECT account.userid,accountname,timeloggin FROM account, work where account.userid=work.userid ";
+		String sql2= "SELECT manageraccount.userid,accountname,timeloggin FROM manageraccount, work where manageraccount.userid=work.userid ";
 		try {
 			ResultSet rs = connection.createStatement().executeQuery(sql1);
 			while (rs.next()) {
@@ -40,7 +40,6 @@ public class WorkDAO {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		JDBCUtil.CloseConnection(connection);
 		return ketQua;
 		// TODO Auto-generated method stub

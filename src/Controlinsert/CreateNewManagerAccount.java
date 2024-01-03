@@ -30,7 +30,7 @@ public class CreateNewManagerAccount {
 		if(newpassword1.getText().compareTo(newpassword2.getText())==0) {
 		ManagerAccount a = new ManagerAccount(newuserid.getText(),newaccountname.getText(),newpassword1.getText(),secques.getText(),answer.getText());
 		Account b=new Account(newuserid.getText(),newaccountname.getText(),newpassword1.getText());
-		if(b.checkAccountName()) {
+		if(!b.checkAccountName()) {
 		if(ManagerAccount.makeNewManagerAccount(a)>0) {
 			showAlert(AlertType.INFORMATION,"thông báo", "Tạo tài khoảng thành công");
 		}

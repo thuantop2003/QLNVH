@@ -150,13 +150,14 @@ public class AccountDAO implements DAOInterface<Account> {
 			PreparedStatement pst = connection.prepareStatement(sql);
 			pst.setString(1,t);
 			ResultSet rs =pst.executeQuery();
-			
+			while(rs.next()) {
 			String userid = rs.getString("userid");
 			String accountname = rs.getString("accountname");
 			String password = rs.getString("password");
 			String note = rs.getString("note");
 			Account a = new Account(userid,accountname,password,note);
 			tt=a;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

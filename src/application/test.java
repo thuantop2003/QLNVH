@@ -29,7 +29,6 @@ public class test{
 	public static void main(String[] args) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
-        // Chuyển đổi chuỗi thành LocalDateTime
         LocalDateTime times = LocalDateTime.parse("2000-01-01 00:00:00", formatter);
         LocalDateTime timef = LocalDateTime.parse("3000-01-01 00:00:00", formatter);
         ArrayList<Work> a= WorkDAO.getInstance().selectByTime(times, timef);

@@ -2,7 +2,11 @@ package Control;
 
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
+import DAO.AccountDAO;
+import DAO.ManagerAccountDAO;
+import DAO.WorkDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Account;
 import model.ManagerAccount;
+import model.Work;
 
 public class LogginController {
 	@FXML
@@ -33,7 +38,29 @@ public class LogginController {
 		String ps= password.getText();
 		ManagerAccount a=new ManagerAccount(username,ps);
 		if(a.checkManagerAccount()) {
+			a=ManagerAccountDAO.getInstance().selectByName(username);
+			Work t= new Work(a.getUserId(),a.getAccountName(),LocalDateTime.now());
+			WorkDAO.getInstance().insert(t);
 			root = FXMLLoader.load(getClass().getResource("/view/Menu.fxml"));
+			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+			scene= new Scene(root);
+			stage.setScene(scene);
+			stage.show();
+		}
+		else {
+			showAlert(AlertType.ERROR,"Lỗi", "Tài khoản hoặc mật khẩu không chính xác");
+		}
+		
+	}
+	public void loginAccount(ActionEvent event) throws IOException{
+		String username = accountname.getText();
+		String ps= password.getText();
+		Account a=new Account(username,ps);
+		if(a.checkAccount()) {
+			a=AccountDAO.getInstance().selectByName(username);
+			Work t= new Work(a.getUserId(),a.getAccountName(),LocalDateTime.now());
+			WorkDAO.getInstance().insert(t);
+			root = FXMLLoader.load(getClass().getResource("/viewAccount/Menu.fxml"));
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene= new Scene(root);
 			stage.setScene(scene);
