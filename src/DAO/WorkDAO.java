@@ -30,7 +30,7 @@ public class WorkDAO {
 			}
 			ResultSet rs2 = connection.createStatement().executeQuery(sql2);
 			while (rs2.next()) {
-				String userid = rs2.getString("account.userid");
+				String userid = rs2.getString("manageraccount.userid");
 				String accountname = rs2.getString("accountname");
 				LocalDateTime timeloggin = (LocalDateTime) rs2.getObject("timeloggin");
 				Work a= new Work(userid,accountname,timeloggin);

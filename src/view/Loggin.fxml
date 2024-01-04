@@ -5,20 +5,31 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.LogginController">
+<AnchorPane prefHeight="471.0" prefWidth="539.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Control.LogginController">
    <children>
-      <AnchorPane layoutX="1.0" prefHeight="471.0" prefWidth="539.0">
+      <Button layoutX="177.0" layoutY="333.0" mnemonicParsing="false" onAction="#login" text="Đăng nhập với tài khoản quản lí" AnchorPane.bottomAnchor="112.66666666666667" AnchorPane.leftAnchor="177.00000000000003" AnchorPane.rightAnchor="176.66666666666666" AnchorPane.topAnchor="333.0" />
+      <Button layoutX="303.0" layoutY="272.0" mnemonicParsing="false" onAction="#forgetPassword" text="Quên mật khẩu" />
+      <Label layoutX="182.0" layoutY="55.0" text="Ứng dụng quản lí nhà văn hóa" />
+      <Button layoutX="137.0" layoutY="272.0" mnemonicParsing="false" onAction="#loginAccount" text="Đăng nhập" />
+      <GridPane layoutX="130.0" layoutY="108.0" prefHeight="127.0" prefWidth="279.0" AnchorPane.leftAnchor="130.0" AnchorPane.rightAnchor="130.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="135.3333740234375" minWidth="10.0" prefWidth="111.3333740234375" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.6666259765625" minWidth="10.0" prefWidth="167.6666259765625" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
          <children>
-            <Button layoutX="187.0" layoutY="336.0" mnemonicParsing="false" onAction="#login" text="Đăng nhập với tài khoản quản lí" />
-            <Button layoutX="305.0" layoutY="272.0" mnemonicParsing="false" onAction="#forgetPassword" text="Quên mật khẩu" />
-            <Label layoutX="61.0" layoutY="156.0" text="Tên đăng nhập" />
-            <Label layoutX="61.0" layoutY="214.0" text="Mật khẩu" />
-            <Label layoutX="182.0" layoutY="55.0" text="Ứng dụng quản lí nhà văn hóa" />
-            <TextField fx:id="accountname" layoutX="174.0" layoutY="152.0" prefHeight="25.0" prefWidth="211.0" />
-            <PasswordField fx:id="password" layoutX="174.0" layoutY="210.0" prefHeight="25.0" prefWidth="211.0" />
-            <Button layoutX="156.0" layoutY="272.0" mnemonicParsing="false" onAction="#loginAccount" text="Đăng nhập" />
+            <TextField fx:id="accountname" prefHeight="25.0" prefWidth="211.0" GridPane.columnIndex="1" />
+            <PasswordField fx:id="password" prefHeight="25.0" prefWidth="211.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Label text="Tên đăng nhập" />
+            <Label text="Mật khẩu" GridPane.rowIndex="1" />
          </children>
-      </AnchorPane>
+      </GridPane>
    </children>
 </AnchorPane>

@@ -121,7 +121,7 @@ public class InsertRentControl implements Initializable {
 			showAlert(AlertType.ERROR,"Lỗi", "Phòng không tồn tại");
 		}
 }
-	public void insertDeviceActivity(ActionEvent event) throws IOException{
+	public void insertDeviceRent(ActionEvent event) throws IOException{
 		if (DeviceDAO.getInstance().checkexistByName(textdname.getText())) {
 			if(DeviceDAO.getInstance().selectByName(textdname.getText()).getAmount() - DeviceDAO.getInstance().totalDeviceInUse(DeviceDAO.getInstance().selectByName(textdname.getText()).getDeviceId(), Timestamp.valueOf(textstart.getText()), Timestamp.valueOf(textstart.getText()))> Integer.parseInt(textamount.getText())) {
 			Device dd=DeviceDAO.getInstance().selectByName(textdname.getText());

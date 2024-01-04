@@ -44,6 +44,8 @@ public class LogginController {
 			root = FXMLLoader.load(getClass().getResource("/view/Menu.fxml"));
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene= new Scene(root);
+			String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+			scene.getStylesheets().add(css);
 			stage.setScene(scene);
 			stage.show();
 		}
@@ -63,6 +65,8 @@ public class LogginController {
 			root = FXMLLoader.load(getClass().getResource("/viewAccount/Menu.fxml"));
 			stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			scene= new Scene(root);
+			String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+			scene.getStylesheets().add(css);
 			stage.setScene(scene);
 			stage.show();
 		}
@@ -82,6 +86,8 @@ public class LogginController {
 		root = FXMLLoader.load(getClass().getResource("/view/TKQMK.fxml"));
 		stage = new Stage();
 		scene= new Scene(root);
+		String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+		scene.getStylesheets().add(css);
 		stage.setScene(scene);
 		stage.show();
 	}

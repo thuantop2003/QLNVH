@@ -17,6 +17,8 @@ public class MenuControl {
 		root = FXMLLoader.load(getClass().getResource("/viewAccount/Room.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
+		String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+		scene.getStylesheets().add(css);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -24,6 +26,8 @@ public class MenuControl {
 		root = FXMLLoader.load(getClass().getResource("/viewAccount/Device.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
+		String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+		scene.getStylesheets().add(css);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -31,6 +35,8 @@ public class MenuControl {
 		root = FXMLLoader.load(getClass().getResource("/viewAccount/Activity.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
+		String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+		scene.getStylesheets().add(css);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -38,6 +44,17 @@ public class MenuControl {
 		root = FXMLLoader.load(getClass().getResource("/viewAccount/Rent.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
+		String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+		scene.getStylesheets().add(css);
+		stage.setScene(scene);
+		stage.show();
+	}
+	public void logout(ActionEvent event) throws IOException{
+		root = FXMLLoader.load(getClass().getResource("/view/Loggin.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene= new Scene(root);
+		String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+		scene.getStylesheets().add(css);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -45,6 +62,8 @@ public class MenuControl {
 		root = FXMLLoader.load(getClass().getResource("/view/ChangePassword.fxml"));
 		stage=new Stage();
 		scene= new Scene(root);
+		String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+		scene.getStylesheets().add(css);
 		stage.setScene(scene);
 		stage.show();
 	}

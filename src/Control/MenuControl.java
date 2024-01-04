@@ -16,6 +16,8 @@ public class MenuControl {
 		root = FXMLLoader.load(getClass().getResource("/view/Account.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
+		String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+		scene.getStylesheets().add(css);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -23,6 +25,8 @@ public class MenuControl {
 		root = FXMLLoader.load(getClass().getResource("/view/Work.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
+		String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+		scene.getStylesheets().add(css);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -30,6 +34,8 @@ public class MenuControl {
 		root = FXMLLoader.load(getClass().getResource("/view/LocalPerson.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
+		String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+		scene.getStylesheets().add(css);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -37,6 +43,8 @@ public class MenuControl {
 		root = FXMLLoader.load(getClass().getResource("/view/Room.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
+		String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+		scene.getStylesheets().add(css);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -44,6 +52,8 @@ public class MenuControl {
 		root = FXMLLoader.load(getClass().getResource("/view/Device.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
+		String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+		scene.getStylesheets().add(css);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -51,6 +61,8 @@ public class MenuControl {
 		root = FXMLLoader.load(getClass().getResource("/view/Activity.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
+		String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+		scene.getStylesheets().add(css);
 		stage.setScene(scene);
 		stage.show();
 	}
@@ -58,6 +70,17 @@ public class MenuControl {
 		root = FXMLLoader.load(getClass().getResource("/view/Rent.fxml"));
 		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
 		scene= new Scene(root);
+		String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+		scene.getStylesheets().add(css);
+		stage.setScene(scene);
+		stage.show();
+	}
+	public void logout(ActionEvent event) throws IOException{
+		root = FXMLLoader.load(getClass().getResource("/view/Loggin.fxml"));
+		stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+		scene= new Scene(root);
+		String css = this.getClass().getResource("/Style/style1.css").toExternalForm();
+		scene.getStylesheets().add(css);
 		stage.setScene(scene);
 		stage.show();
 	}
