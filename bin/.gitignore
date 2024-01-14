@@ -1,9 +1,11 @@
+/Control/
+/ControlAccount/
+/Controlinsert/
+/DAO/
 /Style/
 /application/
-/view/
-/Control/
-/viewAccount/
-/ControlAccount/
-/DAO/
-/Controlinsert/
+/database/
+/image/
 /model/
+/view/
+/viewAccount/

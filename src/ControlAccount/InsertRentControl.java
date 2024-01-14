@@ -23,6 +23,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Activity;
 import model.Device;
@@ -67,6 +68,8 @@ public class InsertRentControl implements Initializable {
 	
 	@FXML
 	private TableColumn<DeviceRent,String> amount;
+	@FXML
+	private Label idlabel;
 	
 	private ObservableList<DeviceRent> accountlist=FXCollections.observableArrayList();
 	
@@ -123,8 +126,8 @@ public class InsertRentControl implements Initializable {
 }
 	public void insertDeviceRent(ActionEvent event) throws IOException{
 		if (DeviceDAO.getInstance().checkexistByName(textdname.getText())) {
-			if(DeviceDAO.getInstance().selectByName(textdname.getText()).getAmount() - DeviceDAO.getInstance().totalDeviceInUse(DeviceDAO.getInstance().selectByName(textdname.getText()).getDeviceId(), Timestamp.valueOf(textstart.getText()), Timestamp.valueOf(textstart.getText()))> Integer.parseInt(textamount.getText())) {
-			Device dd=DeviceDAO.getInstance().selectByName(textdname.getText());
+			if(DeviceDAO.getInstance().selectByNameUse(textdname.getText()).getAmount() - DeviceDAO.getInstance().totalDeviceInUse(DeviceDAO.getInstance().selectByName(textdname.getText()).getDeviceId(), Timestamp.valueOf(textstart.getText()), Timestamp.valueOf(textstart.getText()))> Integer.parseInt(textamount.getText())) {
+			Device dd=DeviceDAO.getInstance().selectByNameUse(textdname.getText());
 			DeviceRent d= new DeviceRent(dd.getDeviceId(),Integer.parseInt(textamount.getText()),textdname.getText());
 			accountlist.add(d);
 			}

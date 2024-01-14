@@ -27,15 +27,7 @@ import javafx.scene.Scene;
 
 public class test{
 	public static void main(String[] args) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
-        LocalDateTime times = LocalDateTime.parse("2000-01-01 00:00:00", formatter);
-        LocalDateTime timef = LocalDateTime.parse("3000-01-01 00:00:00", formatter);
-        ArrayList<Work> a= WorkDAO.getInstance().selectByTime(times, timef);
-        for(int i=0;i<a.size();i++) {
-        	System.out.println(a.get(i).toString());
-        }
-		
-	}
+		 ArrayList<Timestamp> a = ActivityDAO.getInstance().CheckFreeActivity(2, Timestamp.valueOf("2020-01-01 10:00:00.0"),  Timestamp.valueOf("2024-05-01 18:00:00.0"));
+        }		
 }
 	

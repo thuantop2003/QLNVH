@@ -258,7 +258,7 @@ public class DeviceDAO implements DAOInterface<Device> {
 	public boolean checkexistByName(String t) {
 		boolean aa = false;
 		Connection connection = JDBCUtil.getConnection();
-		String sql= "SELECT * FROM device where devicename = ?  ";
+		String sql= "SELECT * FROM device where devicename = ? and status ='ok' ";
 		System.out.println(sql);
 		try {
 			PreparedStatement pst = connection.prepareStatement(sql);
@@ -335,5 +335,36 @@ public class DeviceDAO implements DAOInterface<Device> {
 		e.printStackTrace();
 	}
 	return total;
-	}	
+	}
+	public Device selectByNameUse(String t) {
+		Device aa = new Device() ;
+		Connection connection = JDBCUtil.getConnection();
+		String sql= "SELECT * FROM device where devicename = ? and status='ok' ";
+		System.out.println(sql);
+		try {
+			PreparedStatement pst = connection.prepareStatement(sql);
+			pst.setString(1,t);
+			ResultSet rs =pst.executeQuery();
+			while (rs.next()) {
+				String devicename = rs.getString("devicename");
+				int amount = rs.getInt("amount");
+				int price = rs.getInt("price");
+				String status= rs.getString("status");
+				String note = rs.getString("note");
+				int roomId= rs.getInt("roomId");
+				int deviceid = rs.getInt("deviceid");
+				Device a = new Device(devicename, amount, price, status, roomId, note, deviceid);
+				aa= a;
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		JDBCUtil.CloseConnection(connection);
+		// TODO Auto-generated method stub
+		return aa;
+		
+	}
 }

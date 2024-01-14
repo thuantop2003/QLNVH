@@ -99,8 +99,8 @@ public class InsertActControl implements Initializable {
 }		
 	public void insertDeviceActivity(ActionEvent event) throws IOException{
 		if (DeviceDAO.getInstance().checkexistByName(textdname.getText())) {
-			if(DeviceDAO.getInstance().selectByName(textdname.getText()).getAmount() - DeviceDAO.getInstance().totalDeviceInUse(DeviceDAO.getInstance().selectByName(textdname.getText()).getDeviceId(), Timestamp.valueOf(textstart.getText()), Timestamp.valueOf(textstart.getText()))> Integer.parseInt(textamount.getText())) {
-			Device dd=DeviceDAO.getInstance().selectByName(textdname.getText());
+			if(DeviceDAO.getInstance().selectByNameUse(textdname.getText()).getAmount() - DeviceDAO.getInstance().totalDeviceInUse(DeviceDAO.getInstance().selectByName(textdname.getText()).getDeviceId(), Timestamp.valueOf(textstart.getText()), Timestamp.valueOf(textstart.getText()))> Integer.parseInt(textamount.getText())) {
+			Device dd=DeviceDAO.getInstance().selectByNameUse(textdname.getText());
 			DeviceActivity d= new DeviceActivity(dd.getDeviceId(),Integer.parseInt(textamount.getText()),textdname.getText());
 			accountlist.add(d);
 			}

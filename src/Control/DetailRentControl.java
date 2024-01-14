@@ -117,9 +117,18 @@ public class DetailRentControl implements Initializable {
 		accountlist.addAll(a);
 	}
 	public void insertDeviceRent(ActionEvent event) throws IOException{
-		Device dd=DeviceDAO.getInstance().selectByName(textdname.getText());
+		if (DeviceDAO.getInstance().checkexistByName(textdname.getText())) {
+			if(DeviceDAO.getInstance().selectByNameUse(textdname.getText()).getAmount() - DeviceDAO.getInstance().totalDeviceInUse(DeviceDAO.getInstance().selectByName(textdname.getText()).getDeviceId(), Timestamp.valueOf(textstart.getText()), Timestamp.valueOf(textstart.getText()))> Integer.parseInt(textamount.getText())) {
+		Device dd=DeviceDAO.getInstance().selectByNameUse(textdname.getText());
 		DeviceRent d= new DeviceRent(dd.getDeviceId(),Integer.parseInt(textamount.getText()),textdname.getText());
 		accountlist.add(d);
+	}
+		else {
+		showAlert(AlertType.ERROR,"Lỗi", "Thiết bị không đủ");
+		}}
+	else {
+		showAlert(AlertType.ERROR,"Lỗi", "Thiết bị không tồn tại");
+	}
 	}
 	public void deleteDeviceRent(ActionEvent event) throws IOException{
 		DeviceRent Selected = table.getSelectionModel().getSelectedItem();
@@ -135,9 +144,12 @@ public class DetailRentControl implements Initializable {
 		if (RoomDAO.getInstance().findRoomByName(textrname.getText())) {
 			Renter renter=new Renter(textrentid.getText(),textrentname.getText(),textsdt.getText(),textaddress.getText(),textrentnote.getText());
 			if(RenterDAO.getInstance().checkexistedrenter(renter)) {
+				DeviceRentDAO.getInstance().deleteByRentId(Integer.parseInt(idlabel.getText()));
 				Room a=RoomDAO.getInstance().selectByName(textrname.getText());
 				Rent newrent=new Rent(textaname.getText(),a.getRoomId(),Timestamp.valueOf(textstart.getText()),Timestamp.valueOf(textfinish.getText()),textrentid.getText(),textnote.getText());
+				newrent.setRentid(Integer.parseInt(idlabel.getText()));
 				RentDAO.getInstance().update(newrent);
+				showAlert(AlertType.INFORMATION,"Thông báo", "Sửa đơn thuê thành công ");
 				int rentid=RentDAO.getInstance().SearchID(newrent);
 				for(int i=0;i<accountlist.size();i++) {
 					accountlist.get(i).setRentid(rentid);

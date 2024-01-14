@@ -54,8 +54,9 @@ public class RentDAO implements DAOInterface<Rent>  {
 		Connection connection = JDBCUtil.getConnection();
 		int ketqua=0;
 		String sql= "UPDATE rent "
-				+" SET rentname=?, roomid=?, timestart=?, timefinish=?, note = ?"
+				+" SET rentname=?, roomid=?, timestart=?, timefinish=?, note = ?, renterid =?"
 				+" WHERE rentid=?";
+		System.out.println(sql);
 		PreparedStatement pst;
 		try {
 			pst = connection.prepareStatement(sql);			
@@ -63,9 +64,9 @@ public class RentDAO implements DAOInterface<Rent>  {
 			pst.setInt(2, t.getRoomid());
 			pst.setTimestamp(3, t.getTimestart());
 			pst.setTimestamp(4, t.getTimefinish());
-			pst.setString(6, t.getNote());
-			pst.setString(5, t.getRenterid());
-			pst.setInt(5, t.getRentid());
+			pst.setString(5, t.getNote());
+			pst.setInt(7, t.getRentid());
+			pst.setString(6, t.getRenterid());
 			ketqua =pst.executeUpdate();
 			System.out.println(ketqua);
 		} catch (SQLException e) {

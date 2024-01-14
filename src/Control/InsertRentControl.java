@@ -123,8 +123,8 @@ public class InsertRentControl implements Initializable {
 }
 	public void insertDeviceRent(ActionEvent event) throws IOException{
 		if (DeviceDAO.getInstance().checkexistByName(textdname.getText())) {
-			if(DeviceDAO.getInstance().selectByName(textdname.getText()).getAmount() - DeviceDAO.getInstance().totalDeviceInUse(DeviceDAO.getInstance().selectByName(textdname.getText()).getDeviceId(), Timestamp.valueOf(textstart.getText()), Timestamp.valueOf(textstart.getText()))> Integer.parseInt(textamount.getText())) {
-			Device dd=DeviceDAO.getInstance().selectByName(textdname.getText());
+			if(DeviceDAO.getInstance().selectByNameUse(textdname.getText()).getAmount() - DeviceDAO.getInstance().totalDeviceInUse(DeviceDAO.getInstance().selectByName(textdname.getText()).getDeviceId(), Timestamp.valueOf(textstart.getText()), Timestamp.valueOf(textstart.getText()))> Integer.parseInt(textamount.getText())) {
+			Device dd=DeviceDAO.getInstance().selectByNameUse(textdname.getText());
 			DeviceRent d= new DeviceRent(dd.getDeviceId(),Integer.parseInt(textamount.getText()),textdname.getText());
 			accountlist.add(d);
 			}

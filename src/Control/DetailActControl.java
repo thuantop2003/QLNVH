@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import DAO.ActivityDAO;
 import DAO.DeviceActivityDAO;
 import DAO.DeviceDAO;
+import DAO.DeviceRentDAO;
 import DAO.RoomDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -96,13 +97,15 @@ public class DetailActControl implements Initializable {
 	}
 	public void update(ActionEvent event) throws IOException{
 		if (RoomDAO.getInstance().findRoomByName(textrname.getText())) {
+			DeviceActivityDAO.getInstance().deleteByActivityId(Integer.parseInt(idlabel.getText()));
 			Room a=RoomDAO.getInstance().selectByName(textrname.getText());
 			Activity newact=new Activity(textaname.getText(),a.getRoomId(),Timestamp.valueOf(textstart.getText()),Timestamp.valueOf(textfinish.getText()),textnote.getText());
 			newact.setActivityid(Integer.parseInt(idlabel.getText()));
 			ActivityDAO.getInstance().update(newact);
+			showAlert(AlertType.INFORMATION,"Thông báo", "Sửa đơn thuê thành công ");
 			for(int i=0;i<accountlist.size();i++) {
 				accountlist.get(i).setActivityid(Integer.parseInt(idlabel.getText()));
-				DeviceActivityDAO.getInstance().update(accountlist.get(i));
+				DeviceActivityDAO.getInstance().insert(accountlist.get(i));
 			}
 		}
 		else {
@@ -110,9 +113,18 @@ public class DetailActControl implements Initializable {
 		}
 }
 	public void insertDeviceActivity(ActionEvent event) throws IOException{
-		Device dd=DeviceDAO.getInstance().selectByName(textdname.getText());
+		if (DeviceDAO.getInstance().checkexistByName(textdname.getText())) {
+		if(DeviceDAO.getInstance().selectByNameUse(textdname.getText()).getAmount() - DeviceDAO.getInstance().totalDeviceInUse(DeviceDAO.getInstance().selectByName(textdname.getText()).getDeviceId(), Timestamp.valueOf(textstart.getText()), Timestamp.valueOf(textstart.getText()))> Integer.parseInt(textamount.getText())) {
+		Device dd=DeviceDAO.getInstance().selectByNameUse(textdname.getText());
 		DeviceActivity d= new DeviceActivity(dd.getDeviceId(),Integer.parseInt(textamount.getText()),textdname.getText());
 		accountlist.add(d);
+		}
+		else {
+			showAlert(AlertType.ERROR,"Lỗi", "Thiết bị không đủ");
+		}}
+		else {
+			showAlert(AlertType.ERROR,"Lỗi", "Thiết bị không tồn tại");
+		}
 	}
 	public void deleteDeviceActivity(ActionEvent event) throws IOException{
 		DeviceActivity Selected = table.getSelectionModel().getSelectedItem();

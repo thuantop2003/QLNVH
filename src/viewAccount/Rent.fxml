@@ -81,7 +81,7 @@
             <Button mnemonicParsing="false" onAction="#SearchOffDate" prefHeight="25.0" prefWidth="201.0" text="Hoạt động đã quá hạn" GridPane.columnIndex="6" />
             <Button mnemonicParsing="false" onAction="#SearchNearOffDate" prefHeight="25.0" prefWidth="157.0" text="Hoạt động sắp tới hạn" GridPane.columnIndex="6" GridPane.rowIndex="2" />
             <Button mnemonicParsing="false" onAction="#searchByRenterName" prefHeight="25.0" prefWidth="157.0" text="Tìm theo tên người thuê" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <TextField fx:id="textrentname" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+            <TextField fx:id="textrenter" GridPane.columnIndex="4" GridPane.rowIndex="3" />
          </children>
       </GridPane>
       <Label fx:id="titleLabel" layoutX="-1.0" layoutY="14.0" prefHeight="26.0" prefWidth="896.0" text="QUẢN LÝ NHÀ VĂN HOÁ " />
